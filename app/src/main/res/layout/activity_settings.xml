@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="planet.it.limited.planetapp.activity.SettingsActivity"
+    android:background="@drawable/back_image"
+    >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_settings"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/txv_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:textSize="22dp"
+
+                    />
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/text_input_border"
+        android:layout_marginRight="10dp"
+        >
+
+        <TextView
+            android:id="@+id/txv_username_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name:"
+            android:layout_marginTop="12dp"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:layout_marginLeft="05dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="35dp"
+
+            >
+            <AutoCompleteTextView
+                android:paddingTop="15dp"
+                android:id="@+id/txv_user_name"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter User Name "
+                android:imeOptions="actionDone"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/text_input_border"
+        android:layout_marginRight="10dp"
+        >
+
+        <TextView
+            android:id="@+id/txv_password_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password:"
+            android:layout_marginTop="12dp"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:layout_marginLeft="05dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="42dp"
+
+            >
+            <AutoCompleteTextView
+                android:paddingTop="15dp"
+                android:id="@+id/txv_password"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Password "
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/text_input_border"
+        android:layout_marginRight="10dp"
+        >
+
+        <TextView
+            android:id="@+id/txv_from_sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sender Number:"
+            android:layout_marginTop="12dp"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:layout_marginLeft="05dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="2dp"
+
+            >
+            <AutoCompleteTextView
+                android:paddingTop="15dp"
+                android:id="@+id/txv_sender"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Sender Number "
+                android:inputType="number"
+                android:imeOptions="actionDone"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        >
+        <Button
+            android:id="@+id/btn_update"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="false"
+            android:text="Update"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textSize="18dp"
+            />
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:text="Save"
+             android:layout_marginRight="10dp"
+            android:textSize="18dp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

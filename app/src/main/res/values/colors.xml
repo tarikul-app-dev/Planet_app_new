@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#416971</color>
+    <color name="colorPrimaryDark">#0275D8</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_sms">#FFAB40</color>
+    <color name="color_contacts">#2E7D32</color>
+    <color name="color_file_to_sms">#9C27B0</color>
+    <color name="color_settings">#546E7A</color>
+    <color name="color_top_up">#66BB6A</color>
+
+</resources>
