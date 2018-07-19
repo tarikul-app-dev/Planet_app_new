@@ -1,9 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_image"
+    android:orientation="vertical"
     tools:context="planet.it.limited.planetapp.activity.FileToSMSActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_file_to_sms"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/txv_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="File To SMS"
+                    android:textSize="22dp"
+
+                    />
+
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         android:layout_marginLeft="10dp"
+         android:background="@drawable/button_border"
+         android:layout_marginRight="10dp"
+         >
+         <Button
+             android:id="@+id/btn_choose_file"
+             style="@style/Widget.AppCompat.Button.Colored"
+             android:layout_width="150dp"
+             android:layout_height="50dp"
+             android:layout_marginTop="0dp"
+             android:layout_alignParentBottom="true"
+             android:text="Choose File"
+             android:layout_gravity="center"
+             android:textSize="15dp"
+             />
+         <TextView
+             android:id="@+id/txv_file_extension"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="................."
+             android:layout_marginTop="10dp"
+             android:layout_marginLeft="10dp"
+             android:textSize="17dp"
+             android:textColor="#000"
+             />
+     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linlayout_form"
+        android:visibility="visible"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/text_input_border"
+            android:layout_marginRight="10dp"
+            >
+
+            <TextView
+                android:id="@+id/txv_from_sender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From:"
+                android:layout_marginTop="12dp"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:layout_marginLeft="05dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="2dp"
+
+                >
+                <AutoCompleteTextView
+                    android:paddingTop="15dp"
+                    android:id="@+id/txv_sender"
+                    android:focusableInTouchMode="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select the sender "
+                    android:focusable="false"
+                    android:textColorHint="#000"
+                    android:textColor="#000"
+                    android:imeOptions="actionDone"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Content:"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:layout_marginLeft="10dp"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="02dp"
+
+            android:layout_marginLeft="10dp"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:background="@drawable/text_input_border"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <EditText
+                    android:id="@+id/edt_msg_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:inputType="text|textMultiLine"
+                    android:layout_marginLeft="04dp"
+                    android:layout_marginRight="04dp"
+                    android:layout_marginTop="04dp"
+                    android:imeOptions="actionDone"
+                    android:background="@null"
+                    android:hint="Enter your message"
+                    android:layout_gravity="center_horizontal"
+                    android:textColorHint="#000"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:gravity="top"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                >
+                <TextView
+                    android:id="@+id/txv_text_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="160"
+                    android:layout_marginLeft="05dp"
+                    android:textSize="20dp"
+                    android:textColor="#000"
+                    />
+                <TextView
+                    android:id="@+id/txv_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Characters Remaining"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="17dp"
+                    android:textColor="#000"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        >
+                        <TextView
+                            android:id="@+id/txv_message_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20dp"
+                            android:textColor="#000"
+                            />
+                        <TextView
+                            android:id="@+id/txv_abc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Message"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:textSize="17dp"
+                            android:textColor="#000"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="39dp"
+                >
+                <Button
+                    android:id="@+id/btn_send_msg"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_alignParentBottom="true"
+                    android:text="Send Msg"
+                    android:layout_gravity="center"
+                    android:textSize="18dp"
+                    />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

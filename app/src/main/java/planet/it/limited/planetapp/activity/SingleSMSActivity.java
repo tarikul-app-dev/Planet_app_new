@@ -126,6 +126,7 @@ public class SingleSMSActivity extends AppCompatActivity {
         linlayoutForm = (LinearLayout)findViewById(R.id.linlayout_form);
         linearLayoutListView = (LinearLayout)findViewById(R.id.linlayout_listview);
         constant = new Constant(SingleSMSActivity.this);
+        btnSendMsg.setTransformationMethod(null);
 
         if(senderNumber!=null){
             txvSender.setText(senderNumber);

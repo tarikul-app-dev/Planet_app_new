@@ -75,6 +75,7 @@ public class ContactsToSMSActivity extends AppCompatActivity {
         txvTotalContacts = (TextView)findViewById(R.id.txv_total_contacts);
         constant = new Constant(ContactsToSMSActivity.this);
         sendMultipleSMS = new SendMultipleSMS(ContactsToSMSActivity.this);
+        btnSendMsg.setTransformationMethod(null);
 
         allNumberList = new ArrayList<>();
         contactNumList = contactsDB.getOnlyNumber();

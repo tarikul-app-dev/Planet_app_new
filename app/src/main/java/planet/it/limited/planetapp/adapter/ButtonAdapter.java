@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.activity.ContactsToSMSActivity;
+import planet.it.limited.planetapp.activity.FileToSMSActivity;
 import planet.it.limited.planetapp.activity.SettingsActivity;
 import planet.it.limited.planetapp.activity.SingleSMSActivity;
 
@@ -106,11 +107,11 @@ public class ButtonAdapter extends BaseAdapter {
                     Intent intent = new Intent(mContext,ContactsToSMSActivity.class);
                     mContext.startActivity(intent);
                 }
-           //else if(position==2){
-//                    Intent intent = new Intent(mContext,VoiceDashboard.class);
-//                    mContext.startActivity(intent);
-//                  //  ((Activity)mContext).finish();
-//                }
+           else if(position==2){
+                    Intent intent = new Intent(mContext,FileToSMSActivity.class);
+                    mContext.startActivity(intent);
+                  //  ((Activity)mContext).finish();
+                }
                     else if(position==3){
 
                     Intent intent = new Intent(mContext,SettingsActivity.class);

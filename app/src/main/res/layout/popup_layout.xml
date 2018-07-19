@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    android:background="#fff"
+
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Total Import Contacts"
+        android:textColor="#000"
+        android:layout_marginTop="20dp"
+         android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_below="@+id/imgv_close_window"
+        />
+    <ImageView
+        android:id="@+id/imgv_close_window"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_cancel"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txv_total_contacts"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:text="0"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000"
+        android:textSize="22dp"
+        android:layout_below="@+id/imgv_close_window"
+        >
+
+    </TextView>
+
+
+</RelativeLayout>

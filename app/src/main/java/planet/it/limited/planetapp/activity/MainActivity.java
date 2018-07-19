@@ -222,10 +222,10 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
             startActivity(intent);
 //            // ActivityCompat.finishAffinity(MainActivity.this);
         }
-        //else if(position==2){
-//            Intent intent = new Intent(MainActivity.this,VoiceDashboard.class);
-//            startActivity(intent);
-//        }
+        else if(position==2){
+            Intent intent = new Intent(MainActivity.this,FileToSMSActivity.class);
+            startActivity(intent);
+        }
         else if(position==3){
 
             Intent intent = new Intent(MainActivity.this,SettingsActivity.class);

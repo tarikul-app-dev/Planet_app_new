@@ -19,8 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -30,42 +28,38 @@ import okhttp3.Response;
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.activity.ContactsToSMSActivity;
 import planet.it.limited.planetapp.activity.FileToSMSActivity;
-import planet.it.limited.planetapp.activity.SingleSMSActivity;
 
 /**
- * Created by Tarikul on 7/3/2018.
+ * Created by Tarikul on 7/19/2018.
  */
 
-public class SendMultipleSMS {
+public class SendFileSMS {
     Context mContext;
     String  singleSMSAPI = "";
     String messageId = "";
-    public static ContactsToSMSActivity contactsToSMSActivity;
+    public static FileToSMSActivity fileToSMSActivity;
     private Dialog loadingDialog;
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-
-    public SendMultipleSMS(Context context){
+    public SendFileSMS(Context context){
         this.mContext = context;
         singleSMSAPI = Constant.singleSMSAPI;
-        contactsToSMSActivity = (ContactsToSMSActivity) mContext;
-
+        fileToSMSActivity = (FileToSMSActivity) mContext;
     }
 
-    public void sendToMultipleSMS(String senderNum,List recipientsNum,String msg,String username,String password){
-        SendSMSTask sendSMSTask = new SendSMSTask(senderNum,recipientsNum,msg,username,password);
-        sendSMSTask.execute();
+    public void sendToFileSMS(String senderNum,String[] recipientsNum,String msg,String username,String password){
+        SendFileSMSTask sendFileSMSTask = new SendFileSMSTask(senderNum,recipientsNum,msg,username,password);
+        sendFileSMSTask.execute();
     }
-
-    public class SendSMSTask extends AsyncTask<String, Integer, String> {
+    public class SendFileSMSTask extends AsyncTask<String, Integer, String> {
         String mFromSender;
-        List mToRecipients;
+        String[] mToRecipients;
         String mContentMsg;
         String mUserName;
         String mPassword;
         // private Dialog loadingDialog;
-        public SendSMSTask (String fromSender,List toRecipients,String contentMsg,String userName,String password){
+        public SendFileSMSTask (String fromSender,String[] toRecipients,String contentMsg,String userName,String password){
             mFromSender = fromSender;
             mToRecipients = toRecipients;
             mContentMsg = contentMsg;
@@ -80,6 +74,7 @@ public class SendMultipleSMS {
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected String doInBackground(String... params) {
 
@@ -87,7 +82,7 @@ public class SendMultipleSMS {
             String credentials = mUserName + ":" + mPassword;
             final String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
-           // String sample =mToRecipients.replaceAll("\\\\", "");
+            // String sample =mToRecipients.replaceAll("\\\\", "");
             try {
 
                 JSONObject json = new JSONObject();
@@ -113,7 +108,7 @@ public class SendMultipleSMS {
                 response = client.newCall(request).execute();
                 if (response.isSuccessful()){
                     final String result = response.body().string();
-                   // Log.d(RESPONSE_LOG,result);
+                    // Log.d(RESPONSE_LOG,result);
 
                     try {
                         JSONObject jsonObject = new JSONObject(result);
@@ -122,14 +117,14 @@ public class SendMultipleSMS {
                         {
                             JSONObject object1 = jArray1.getJSONObject(i);
 
-                           messageId = object1.getString("messageId");
+                            messageId = object1.getString("messageId");
 
                         }
                         ((Activity)mContext).runOnUiThread (new Thread(new Runnable() {
                             public void run() {
                                 if(messageId.length()>0){
                                     loadingDialog.cancel();
-                                    openDialog(messageId);
+                                    openFileDialog(messageId);
                                 }else {
                                     Toast.makeText(mContext,"Message Sending Failled",Toast.LENGTH_SHORT).show();
                                 }
@@ -144,7 +139,7 @@ public class SendMultipleSMS {
                     ((Activity)mContext).runOnUiThread (new Thread(new Runnable() {
                         public void run() {
                             loadingDialog.cancel();
-                                Toast.makeText(mContext,"Message Sending Failled",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext,"Message Sending Failled",Toast.LENGTH_SHORT).show();
                         }
                     }));
                 }
@@ -170,8 +165,7 @@ public class SendMultipleSMS {
 
 
     }
-
-    public void openDialog(String msgId) {
+    public void openFileDialog(String msgId) {
         final Dialog dialog = new Dialog(mContext); // Context, this, etc.
         dialog.setContentView(R.layout.custom_dialog);
         TextView txvResponseMsg = (TextView) dialog.findViewById(R.id.dialog_info);
@@ -184,12 +178,12 @@ public class SendMultipleSMS {
             @Override
             public void onClick(View v) {
 
-                contactsToSMSActivity.finish();
-                Intent intent = new Intent(mContext,ContactsToSMSActivity.class);
+                fileToSMSActivity.finish();
+                Intent intent = new Intent(mContext,FileToSMSActivity.class);
                 mContext.startActivity(intent);
 
-               // SingleSMSActivity.txtPhoneNo.setText("");
-                ContactsToSMSActivity.edtContentMsg.setText("");
+                FileToSMSActivity.txvExtension.setText("");
+                FileToSMSActivity.edtContentMsg.setText("");
                 dialog.dismiss();
             }
         });
@@ -202,5 +196,6 @@ public class SendMultipleSMS {
 
         dialog.show();
     }
+
 
 }
