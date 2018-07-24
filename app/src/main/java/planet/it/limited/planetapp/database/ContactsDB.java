@@ -197,9 +197,10 @@ public class ContactsDB {
 
     }
 
-
-
-
+    public void deleteAllContacts()
+    {
+        database.execSQL(" delete from " + DATABASE_TABLE_CONTACTS);
+    }
 
 
 }

@@ -52,6 +52,7 @@ import planet.it.limited.planetapp.database.ContactsDB;
 import planet.it.limited.planetapp.model.ContactModel;
 import planet.it.limited.planetapp.model.SortBasedOnName;
 import planet.it.limited.planetapp.utill.Constant;
+import planet.it.limited.planetapp.utill.FontCustomization;
 import planet.it.limited.planetapp.utill.SendSingleSMS;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -69,9 +70,6 @@ public class SingleSMSActivity extends AppCompatActivity {
     String password = "";
     public ArrayList<ContactModel> contactNumList ;
     Button btnSendMsg;
-   // ContactsAdapter adapter;
-
-
     SendSingleSMS sendSingleSMS;
     Toolbar toolbar;
     TextView txvMsgCount,txvLengthOfText;
@@ -85,7 +83,9 @@ public class SingleSMSActivity extends AppCompatActivity {
 
     // init global boolean
     private boolean isReached = false;
-
+    FontCustomization fontCustomization;
+    TextView txvToolbarText;
+    TextView txvTo,txvFrom,txvContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class SingleSMSActivity extends AppCompatActivity {
                  onBackPressed();
             }
         });
-
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
 
         initViews();
 
@@ -108,16 +108,21 @@ public class SingleSMSActivity extends AppCompatActivity {
 
     }
     public void initViews(){
+        fontCustomization = new FontCustomization(SingleSMSActivity.this);
+        txvToolbarText = (TextView)findViewById(R.id.txv_main);
         contactsDB = new ContactsDB(SingleSMSActivity.this);
         contactsDB.open();
         isReadContacts = getBoleanValueSharedPreferences("is_read", SingleSMSActivity.this);
         txvLengthOfText = (TextView)findViewById(R.id.txv_text_length);
         txvMsgCount = (TextView)findViewById(R.id.txv_message_count);
-
         txtPhoneNo = (AutoCompleteTextView) findViewById(R.id.txv_recipients);
         txvSender = (AutoCompleteTextView) findViewById(R.id.txv_sender);
         edtContentMsg = (EditText)findViewById(R.id.edt_msg_content);
         btnSendMsg = (Button)findViewById(R.id.btn_send_msg);
+        txvTo = (TextView)findViewById(R.id.txv_to);
+        txvFrom = (TextView)findViewById(R.id.txv_from);
+        txvContent = (TextView)findViewById(R.id.txv_content);
+
         senderNumber = getValueFromSharedPreferences("sender_number",SingleSMSActivity.this);
         userName = getValueFromSharedPreferences("user_name",SingleSMSActivity.this);
         password = getValueFromSharedPreferences("pass_word",SingleSMSActivity.this);
@@ -127,6 +132,18 @@ public class SingleSMSActivity extends AppCompatActivity {
         linearLayoutListView = (LinearLayout)findViewById(R.id.linlayout_listview);
         constant = new Constant(SingleSMSActivity.this);
         btnSendMsg.setTransformationMethod(null);
+
+        // to set font style
+        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvLengthOfText.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvMsgCount.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txtPhoneNo.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvSender.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        edtContentMsg.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnSendMsg.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvTo.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvFrom.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvContent.setTypeface(fontCustomization.getTexgyreHerosRegular());
 
         if(senderNumber!=null){
             txvSender.setText(senderNumber);

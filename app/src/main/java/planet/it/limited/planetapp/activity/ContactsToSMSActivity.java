@@ -21,6 +21,7 @@ import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.database.ContactsDB;
 import planet.it.limited.planetapp.model.ContactModel;
 import planet.it.limited.planetapp.utill.Constant;
+import planet.it.limited.planetapp.utill.FontCustomization;
 import planet.it.limited.planetapp.utill.SendMultipleSMS;
 
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getValueFromSharedPreferences;
@@ -34,12 +35,14 @@ public class ContactsToSMSActivity extends AppCompatActivity {
     public ArrayList<ContactModel> contactNumList = new ArrayList<>();
     Button btnSendMsg;
     Toolbar toolbar;
-    TextView txvMsgCount,txvLengthOfText,txvTotalContacts;
+    TextView txvMsgCount,txvLengthOfText,txvTotalContacts,txvTotalConHead,txvFrom,txvContent;
     ContactsDB contactsDB;
     public Constant constant;
     ArrayList<String> allNumberList;
     String allCommmaSepNumber = " ";
     SendMultipleSMS sendMultipleSMS;
+    TextView txvToolbarText;
+    FontCustomization fontCustomization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +57,15 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         initViews();
 
     }
 
 
     public void initViews(){
+        fontCustomization = new FontCustomization(ContactsToSMSActivity.this);
+        txvToolbarText = (TextView)findViewById(R.id.txv_main);
         contactsDB = new ContactsDB(ContactsToSMSActivity.this);
         contactsDB.open();
         txvLengthOfText = (TextView)findViewById(R.id.txv_text_length);
@@ -73,9 +78,25 @@ public class ContactsToSMSActivity extends AppCompatActivity {
         userName = getValueFromSharedPreferences("user_name",ContactsToSMSActivity.this);
         password = getValueFromSharedPreferences("pass_word",ContactsToSMSActivity.this);
         txvTotalContacts = (TextView)findViewById(R.id.txv_total_contacts);
+        txvTotalConHead = (TextView)findViewById(R.id.txv_total_contact);
+        txvFrom = (TextView)findViewById(R.id.txv_from);
+        txvContent = (TextView)findViewById(R.id.txv_content);
+
         constant = new Constant(ContactsToSMSActivity.this);
         sendMultipleSMS = new SendMultipleSMS(ContactsToSMSActivity.this);
         btnSendMsg.setTransformationMethod(null);
+
+        // to set font style
+        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvLengthOfText.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvMsgCount.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvTotalContacts.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvSender.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        edtContentMsg.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnSendMsg.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvTotalConHead.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvFrom.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvContent.setTypeface(fontCustomization.getTexgyreHerosRegular());
 
         allNumberList = new ArrayList<>();
         contactNumList = contactsDB.getOnlyNumber();

@@ -9,5 +9,7 @@
     <color name="color_file_to_sms">#9C27B0</color>
     <color name="color_settings">#546E7A</color>
     <color name="color_top_up">#66BB6A</color>
-
+    <color name="color_services">#000</color>
+    <color name="contact_us">#265A88</color>
+    <color name="color_white">#fff</color>
 </resources>

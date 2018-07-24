@@ -15,10 +15,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import planet.it.limited.planetapp.R;
+import planet.it.limited.planetapp.activity.AccountTopUpActivity;
+import planet.it.limited.planetapp.activity.ContactUsActivity;
 import planet.it.limited.planetapp.activity.ContactsToSMSActivity;
 import planet.it.limited.planetapp.activity.FileToSMSActivity;
+import planet.it.limited.planetapp.activity.ServicesActivity;
 import planet.it.limited.planetapp.activity.SettingsActivity;
 import planet.it.limited.planetapp.activity.SingleSMSActivity;
+import planet.it.limited.planetapp.utill.FontCustomization;
 
 
 /**
@@ -30,7 +34,7 @@ public class ButtonAdapter extends BaseAdapter {
     private String[] filesnames;
     GridViewButtonInterface gridViewButtonInterface;
     Drawable [] drawables;
-    //FontCustomization fontCustomization;
+    FontCustomization fontCustomization;
     public  int[] colors;
 
     // Gets the context so it can be used later
@@ -41,7 +45,7 @@ public class ButtonAdapter extends BaseAdapter {
         this.drawables = drawables;
         this.colors = colors;
 
-      //  fontCustomization = new FontCustomization(mContext);
+        fontCustomization = new FontCustomization(mContext);
 
     }
 
@@ -85,7 +89,7 @@ public class ButtonAdapter extends BaseAdapter {
         }
 
 
-      // textView.setTypeface(fontCustomization.getTexgyreHerosBold());
+       textView.setTypeface(fontCustomization.getMerlin());
 
 
 
@@ -113,17 +117,26 @@ public class ButtonAdapter extends BaseAdapter {
                   //  ((Activity)mContext).finish();
                 }
                     else if(position==3){
-
                     Intent intent = new Intent(mContext,SettingsActivity.class);
                     mContext.startActivity(intent);
                    // ((Activity)mContext).finish();
                 }
+                else if(position==4){
+                    Intent intent = new Intent(mContext,AccountTopUpActivity.class);
+                    mContext.startActivity(intent);
+                    // ((Activity)mContext).finish();
+                }
+                else if(position==5){
+                    Intent intent = new Intent(mContext,ServicesActivity.class);
+                    mContext.startActivity(intent);
+                    // ((Activity)mContext).finish();
+                }
+                else if(position==6){
+                    Intent intent = new Intent(mContext,ContactUsActivity.class);
+                    mContext.startActivity(intent);
+                    // ((Activity)mContext).finish();
+                }
 
-                //else if(position==4){
-//                    Intent intent = new Intent(mContext,PeopleActivity.class);
-//                    mContext.startActivity(intent);
-//                  //  ((Activity)mContext).finish();
-//                }
             }
         });
 

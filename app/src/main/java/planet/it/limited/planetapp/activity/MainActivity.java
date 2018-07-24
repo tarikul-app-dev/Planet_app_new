@@ -1,23 +1,33 @@
 package planet.it.limited.planetapp.activity;
 
+import android.Manifest;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.TextView;
+
+import java.util.List;
 
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.adapter.ButtonAdapter;
 import planet.it.limited.planetapp.database.ContactsDB;
+import planet.it.limited.planetapp.detectContact.ContactWatchService;
+import planet.it.limited.planetapp.utill.FontCustomization;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getBoleanValueSharedPreferences;
@@ -30,11 +40,13 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
             "Contacts To SMS",
             "File To SMS",
             "Settings",
-            "Account TopUp"
+            "Account TopUp",
+            "Our Services",
+            "Contact Us"
 
     };
-    public Drawable[] drawables = new Drawable[5];
-    public int colors[] = new int[5];
+    public Drawable[] drawables = new Drawable[7];
+    public int colors[] = new int[7];
 
     boolean isReadContacts;
     ContactsDB contactsDB;
@@ -44,27 +56,45 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
     Cursor cursor;
     int counter;
 
+    private static final String LOG_TAG = "DPObserver";
+    private Handler handler = new Handler();
+    //public final static int MY_PERMISSIONS_READ_CONTACTS = 0x1;
+    public static boolean checkAutoStartPermission;
+
+    FontCustomization fontCustomization;
+    TextView txvToolbarText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initViews();
+        startContactLookService();
     }
 
 
     public void initViews(){
+        txvToolbarText = (TextView)findViewById(R.id.txv_main);
+        fontCustomization = new FontCustomization(MainActivity.this);
+        txvToolbarText.setTypeface(fontCustomization.getMerlin());
         drawables[0] = this.getResources().getDrawable(R.drawable.ic_sms);
         drawables[1] = this.getResources().getDrawable(R.drawable.ic_contacts);
         drawables[2] = this.getResources().getDrawable(R.drawable.ic_file_to_sms);
         drawables[3] = this.getResources().getDrawable(R.drawable.ic_settings);
         drawables[4] = this.getResources().getDrawable(R.drawable.ic_top_up);
+        drawables[5] = this.getResources().getDrawable(R.drawable.ic_services);
+        drawables[6] = this.getResources().getDrawable(R.drawable.ic_contact_us);
 
         colors[0] = ContextCompat.getColor(MainActivity.this, R.color.md_teal_600);
         colors[1] =ContextCompat.getColor(MainActivity.this, R.color.color_contacts);
         colors[2] = ContextCompat.getColor(MainActivity.this, R.color.color_file_to_sms);
         colors[3] =  ContextCompat.getColor(MainActivity.this, R.color.color_settings);
         colors[4] =  ContextCompat.getColor(MainActivity.this, R.color.color_top_up);
+        colors[5] =  ContextCompat.getColor(MainActivity.this, R.color.color_services);
+        colors[6] =  ContextCompat.getColor(MainActivity.this, R.color.contact_us);
+
+
         btnGridView = (GridView)findViewById(R.id.btn_gridview);
 
         contactsDB = new ContactsDB(MainActivity.this);
@@ -73,6 +103,34 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         btnGridView.setAdapter(new ButtonAdapter(MainActivity.this,filesnames,this,drawables,colors));
         if (!isReadContacts) {
             getContacts();
+        }
+        checkAutoStartPermission = getBoleanValueSharedPreferences("auto_start",MainActivity.this);
+        if(checkAutoStartPermission==false){
+            try {
+                Intent intent = new Intent();
+                String manufacturer = android.os.Build.MANUFACTURER;
+                if ("xiaomi".equalsIgnoreCase(manufacturer)) {
+                    intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+                    //checkAutoStartPermission = true;
+                    saveBoleanValueSharedPreferences("auto_start",true,MainActivity.this);
+                } else if ("oppo".equalsIgnoreCase(manufacturer)) {
+                    intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+                    saveBoleanValueSharedPreferences("auto_start",true,MainActivity.this);
+                } else if ("vivo".equalsIgnoreCase(manufacturer)) {
+                    intent.setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+                    saveBoleanValueSharedPreferences("auto_start",true,MainActivity.this);
+                }else if ("huawei".equalsIgnoreCase(manufacturer)) {
+                    intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+                    saveBoleanValueSharedPreferences("auto_start",true,MainActivity.this);
+                }
+
+                List<ResolveInfo> list = MainActivity.this.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                if  (list.size() > 0) {
+                    MainActivity.this.startActivity(intent);
+                }
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
         }
     }
     public void getContacts() {
@@ -231,12 +289,43 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
             Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(intent);
             //  ActivityCompat.finishAffinity(MainActivity.this);
+        }else if(position==4){
+
+            Intent intent = new Intent(MainActivity.this,AccountTopUpActivity.class);
+            startActivity(intent);
+            //  ActivityCompat.finishAffinity(MainActivity.this);
+        }
+        else if(position==5){
+
+            Intent intent = new Intent(MainActivity.this,ServicesActivity.class);
+            startActivity(intent);
+            //  ActivityCompat.finishAffinity(MainActivity.this);
+        }
+        else if(position==6){
+
+            Intent intent = new Intent(MainActivity.this,ContactUsActivity.class);
+            startActivity(intent);
+            //  ActivityCompat.finishAffinity(MainActivity.this);
         }
 
-        //else if(position==4){
-//            Intent intent = new Intent(MainActivity.this,PeopleActivity.class);
-//            startActivity(intent);
-//            // ActivityCompat.finishAffinity(MainActivity.this);
-//        }
     }
+    private void startContactLookService() {
+        try {
+            if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS)
+                    == PackageManager.PERMISSION_GRANTED) {//Checking permission
+                //Starting service for registering ContactObserver
+                Intent intent = new Intent(MainActivity.this, ContactWatchService.class);
+                startService(intent);
+            } else {
+                //Ask for READ_CONTACTS permission
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

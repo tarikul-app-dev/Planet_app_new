@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Planet App</string>
+    <string name="payment_one">To make payments from your bKash Account please follow the steps below.
+(আপনার বিকাশ একাউন্ট থেকে পেমেন্ট করতে নীচের ধাপগুলো অনুসরণ করুন)</string>
+    <string name="payment_two">How to make "Payment" with bKash Mobile Menu:
+(বিকাশ মোবাইল মেন্যুর সাহায্যে যেভাবে "পেমেন্ট" করবেন)</string>
 </resources>

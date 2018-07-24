@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import planet.it.limited.planetapp.R;
+import planet.it.limited.planetapp.utill.FontCustomization;
 
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getValueFromSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.saveToSharedPreferences;
@@ -18,8 +19,9 @@ import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.saveTo
 public class SettingsActivity extends AppCompatActivity {
     AutoCompleteTextView edtUserName,edtPass,edtSenderNum;
     Button btnSave,btnUpdate;
-    TextView txvUserName,txvPassword,txvSenderNum;
+    TextView txvUserName,txvPassword,txvSenderNum,txvToolbarText;
     Toolbar toolbar;
+    FontCustomization fontCustomization;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,29 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void initViews(){
+        fontCustomization = new FontCustomization(SettingsActivity.this);
+        txvToolbarText = (TextView)findViewById(R.id.txv_main);
+        txvUserName = (TextView)findViewById(R.id.txv_username_head);
+        txvPassword = (TextView)findViewById(R.id.txv_password_head);
+        txvSenderNum = (TextView)findViewById(R.id.txv_from_sender);
         edtUserName = (AutoCompleteTextView) findViewById(R.id.txv_user_name);
         edtPass = (AutoCompleteTextView) findViewById(R.id.txv_password);
         edtSenderNum = (AutoCompleteTextView) findViewById(R.id.txv_sender);
         btnSave = (Button)findViewById(R.id.btn_save);
         btnUpdate = (Button)findViewById(R.id.btn_update);
+
+        // to set font style
+        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvUserName.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvPassword.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvSenderNum.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        edtUserName.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        edtPass.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        edtSenderNum.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnSave.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnUpdate.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnSave.setTransformationMethod(null);
+        btnUpdate.setTransformationMethod(null);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

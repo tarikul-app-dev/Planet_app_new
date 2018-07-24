@@ -53,7 +53,7 @@
         >
 
         <TextView
-            android:id="@+id/txv_type_outlet_code"
+            android:id="@+id/txv_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="To:"
@@ -101,7 +101,7 @@
             >
 
             <TextView
-                android:id="@+id/txv_from_sender"
+                android:id="@+id/txv_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="From:"
@@ -254,7 +254,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="0dp"
                     android:layout_alignParentBottom="true"
-                    android:text="Send Msg"
+                    android:text="Send Message"
                     android:layout_gravity="center"
                     android:textSize="18dp"
                     />

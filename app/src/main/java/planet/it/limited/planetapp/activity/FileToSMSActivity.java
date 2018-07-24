@@ -3,8 +3,11 @@ package planet.it.limited.planetapp.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
@@ -22,23 +25,45 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.database.Cursor;
 import android.widget.Toast;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellValue;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.database.ContactsDB;
 import planet.it.limited.planetapp.model.ContactModel;
 import planet.it.limited.planetapp.utill.Constant;
+import planet.it.limited.planetapp.utill.FontCustomization;
 import planet.it.limited.planetapp.utill.SendFileSMS;
 import planet.it.limited.planetapp.utill.SendMultipleSMS;
 
@@ -58,31 +83,65 @@ public class FileToSMSActivity extends AppCompatActivity {
     public ArrayList<ContactModel> contactNumList = new ArrayList<>();
     Button btnSendMsg;
     Toolbar toolbar;
-    TextView txvMsgCount,txvLengthOfText,txvTotalContacts;
+    TextView txvMsgCount,txvLengthOfText,txvTotalContacts,txvToolbarText,txvFrom,txvContent,viewFilePreview;
     ContactsDB contactsDB;
     public Constant constant;
     String allCommmaSepNumber = " ";
     SendFileSMS sendFileSMS;
-    ImageView imgvClosePWindow;
+    ImageView imgvClosePWindow,filePreview;
+
+    int pStatus = 0;
+    private Handler handler = new Handler();
+    ParcelFileDescriptor pFileDescriptor;
+    FileDescriptor fileDescriptor;
+    FontCustomization fontCustomization;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_to_sms);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_file_to_sms);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
         initViews();
     }
 
     public void initViews(){
+        fontCustomization = new FontCustomization(FileToSMSActivity.this);
+        txvToolbarText = (TextView)findViewById(R.id.txv_main);
         btnChooseFile = (Button)findViewById(R.id.btn_choose_file);
         txvExtension = (TextView) findViewById(R.id.txv_file_extension);
         collection = new ArrayList<String[]>();
         txvLengthOfText = (TextView)findViewById(R.id.txv_text_length);
         txvMsgCount = (TextView)findViewById(R.id.txv_message_count);
-
+        txvFrom = (TextView)findViewById(R.id.txv_from);
+        txvContent = (TextView)findViewById(R.id.txv_content);
         txvSender = (AutoCompleteTextView) findViewById(R.id.txv_sender);
         edtContentMsg = (EditText)findViewById(R.id.edt_msg_content);
         btnSendMsg = (Button)findViewById(R.id.btn_send_msg);
+        viewFilePreview = (TextView)findViewById(R.id.txv_preview);
+
+        // to set font style
+        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvLengthOfText.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvMsgCount.setTypeface(fontCustomization.getTexgyreHerosRegular());
+
+        txvSender.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        edtContentMsg.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnSendMsg.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvExtension.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvFrom.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvContent.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnChooseFile.setTypeface(fontCustomization.getTexgyreHerosRegular());
+
         senderNumber = getValueFromSharedPreferences("sender_number",FileToSMSActivity.this);
         userName = getValueFromSharedPreferences("user_name",FileToSMSActivity.this);
         password = getValueFromSharedPreferences("pass_word",FileToSMSActivity.this);
@@ -104,6 +163,7 @@ public class FileToSMSActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 startActivityForResult(intent, REQUEST_CODE_FILEOPEN);
+
 
             }
         });
@@ -137,7 +197,12 @@ public class FileToSMSActivity extends AppCompatActivity {
         });
 
 
-
+        viewFilePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createImageView();
+            }
+        });
 
 
         final TextWatcher txwatcher = new TextWatcher() {
@@ -315,16 +380,29 @@ public class FileToSMSActivity extends AppCompatActivity {
                     if (returnIntent != null) {
                         Uri currentUri = returnIntent.getData();
                         String mimeType = FileToSMSActivity.this.getContentResolver().getType(currentUri);
+                        try {
+                            pFileDescriptor =
+                                    FileToSMSActivity.this.getContentResolver().openFileDescriptor(currentUri, "r");
+
+                            fileDescriptor = pFileDescriptor.getFileDescriptor();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+
                         if(mimeType.contains("text/plain")||mimeType.contains("text/rtf")||mimeType.contains("text/csv")||mimeType.contains("application/csv")||mimeType.contains("application/x-csv")||mimeType.contains("text/comma-separated-values")||mimeType.contains("text/x-comma-separated-values")){
                             readTextFile(currentUri);
                           //  showPopup();
                         }
 
-                        try {
-                            ParcelFileDescriptor pFileDescriptor =
-                                    FileToSMSActivity.this.getContentResolver().openFileDescriptor(currentUri, "r");
+//                        if(mimeType.contains("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")||mimeType.contains("application/vnd.ms-excel")){
+//
+//                            readExcelData(fileDescriptor);
+//
+//                        }
 
-                            FileDescriptor fileDescriptor = pFileDescriptor.getFileDescriptor();
+                        try {
+
                             Cursor returnCursor = this.getContentResolver().query(currentUri, null, null, null, null);
                             if (returnCursor != null && returnCursor.moveToFirst()) {
                                 int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
@@ -370,11 +448,72 @@ public class FileToSMSActivity extends AppCompatActivity {
             }
             reader.close();
             inputStream.close();
+
             showPopup();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+    public void readExcelData(FileDescriptor fileDescriptor)  {
+        ArrayList<ArrayList<String>> OUT = new ArrayList<ArrayList<String>>();
+        InputStream stream = null ;
+        try {
+            stream = new FileInputStream(fileDescriptor);
+
+            // Finds the workbook instance for XLSX file
+            XSSFWorkbook myWorkBook = new XSSFWorkbook (stream);
+
+            // Return first sheet from the XLSX workbook
+            XSSFSheet mySheet = myWorkBook.getSheetAt(0);
+
+            // Get iterator to all the rows in current sheet
+            Iterator<Row> rowIterator = mySheet.iterator();
+
+            // Traversing over each row of XLSX file
+            // Traversing over each row of XLSX file
+            int count=1;
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                ArrayList<String> InnerArray = new ArrayList<String>() ;
+                // For each row, iterate through each columns
+                Iterator<Cell> cellIterator = row.cellIterator();
+                while (cellIterator.hasNext()) {
+
+                    Cell cell = cellIterator.next();
+
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_STRING:
+                            String c = cell.getStringCellValue();
+                            //if(debug)System.out.print(c + "\t");
+                            InnerArray.add(c);
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            double n = (double) cell.getNumericCellValue();
+                            //if(debug)System.out.print(n + "\t");
+                            InnerArray.add(String.valueOf(n));
+                            break;
+                        case Cell.CELL_TYPE_BOOLEAN:
+                            boolean b = cell.getBooleanCellValue();
+                            //  if(debug)System.out.print(b + "\t");
+                            InnerArray.add(String.valueOf(b));
+                            break;
+                        default :
+                    }
+                }
+                OUT.add(InnerArray);
+                count++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     private void showPopup() {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -383,6 +522,7 @@ public class FileToSMSActivity extends AppCompatActivity {
         final PopupWindow pwindo = new PopupWindow(layout, 600, ViewGroup.LayoutParams.WRAP_CONTENT, false);
         txvTotalContacts = (TextView)layout.findViewById(R.id.txv_total_contacts);
         imgvClosePWindow = (ImageView)layout.findViewById(R.id.imgv_close_window);
+        txvTotalContacts.setTypeface(fontCustomization.getTexgyreHerosRegular());
 
         if(numberList.length>0){
              txvTotalContacts.setText(String.valueOf(numberList.length));
@@ -406,4 +546,29 @@ public class FileToSMSActivity extends AppCompatActivity {
 
         pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
     }
+   public void createImageView(){
+       LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+       View layout = inflater.inflate(R.layout.file_peview_layout, (ViewGroup) findViewById(R.id.relative_layout), false);
+
+       final PopupWindow pwindo = new PopupWindow(layout, 600, ViewGroup.LayoutParams.WRAP_CONTENT, false);
+       final ImageView closeWindow = (ImageView)layout.findViewById(R.id.imgv_close_window);
+
+       filePreview = (ImageView)layout.findViewById(R.id.imgv_file_preview);
+       pwindo.setFocusable(true);
+       closeWindow.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               pwindo.dismiss();
+           }
+       });
+
+       if(Build.VERSION.SDK_INT>=21){
+           pwindo.setElevation(5.0f);
+       }
+
+       pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+   }
+
 }
