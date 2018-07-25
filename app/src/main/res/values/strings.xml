@@ -1,7 +1,18 @@
 <resources>
     <string name="app_name">Planet App</string>
     <string name="payment_one">To make payments from your bKash Account please follow the steps below.
-(আপনার বিকাশ একাউন্ট থেকে পেমেন্ট করতে নীচের ধাপগুলো অনুসরণ করুন)</string>
+                                (আপনার বিকাশ একাউন্ট থেকে পেমেন্ট করতে নীচের ধাপগুলো অনুসরণ করুন)</string>
     <string name="payment_two">How to make "Payment" with bKash Mobile Menu:
-(বিকাশ মোবাইল মেন্যুর সাহায্যে যেভাবে "পেমেন্ট" করবেন)</string>
+                                (বিকাশ মোবাইল মেন্যুর সাহায্যে যেভাবে "পেমেন্ট" করবেন)</string>
+    <string name="text_bulk_sms">“PLANET IT” ‘Web Based International Bulk SMS Gateway Provider. Provides Best in Class Support &amp; Services. Special Fair Pricing for Corporate Users. SMS API for Application Developers.</string>
+    <string name="text_push_pull">This service is aimed to provide two way SMS communication. Any organization can provide this service to their target customers to pull information by sending SMS. In reply, customers get a push SMS.</string>
+    <string name="text_app_dev">Need a web or mobile application developed? Have an existing application you need to take to the next level? This is exactly what we do all day everyday.</string>
+    <string name="text_mobile_topup">Topup any Bangladeshi GSM mobile anytime from online. Our Mobile Topup app will help to recharge your mobile balance instantly with a friction of second.</string>
+    <string name="text_bulk_sms_one">Mobile Marketing is the easiest way to promote your business. More than 7 Core people are using Mobile in our country. Let everybody know about you. We will provide the SMS service to reach you in every hand. We provide Low Cost Business SMS Service to reduce your Marketing Cost. Planet IT will provide you new service of most effective Marketing with our Web SMS portal.</string>
+    <string name="bulk_sms">Bulk SMS</string>
+    <string name="push_pull">Push Pull</string>
+    <string name="app_development">App Development</string>
+    <string name="mobile_topup">Mobile Topup</string>
+
+
 </resources>

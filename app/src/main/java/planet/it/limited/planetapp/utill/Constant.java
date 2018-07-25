@@ -12,7 +12,7 @@ public class Constant {
     public static final String singleSMSAPI = "https://api.infobip.com/sms/1/text/single";
     public static final String bkashAPI = "http://apps.planetgroupbd.com/ords/accounts/planet/bkash?";
     public static final String checkUserAPI = "http://apps.planetgroupbd.com/ords/accounts/planet/users/";
-    public static final String serviesAPI = "https://apps.planetgroupbd.com/ords/f?p=PLANET_IT:SERVICES:::NO:::";
+
 
     Context mContext;
     public Constant(Context context){

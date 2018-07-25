@@ -29,24 +29,34 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ContactsToSMSActivity"
-            android:label="" android:screenOrientation="portrait"/>
+            android:label=""
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FileToSMSActivity"
-            android:label="" android:screenOrientation="portrait"/>
+            android:label=""
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="" android:screenOrientation="portrait" />
-        <activity android:name=".activity.AccountTopUpActivity" android:windowSoftInputMode="adjustPan" android:label=""/>
+            android:label=""
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AccountTopUpActivity"
+            android:label=""
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.ContactUsActivity" android:label="" />
-        <activity android:name=".activity.ServicesActivity"></activity>
+        <activity
+            android:name=".activity.ContactUsActivity"
+            android:label="" />
+        <activity
+            android:name=".activity.ServicesActivity"
+            android:label="" />
 
         <service
             android:name=".detectContact.ContactWatchService"
             android:enabled="true"
             android:exported="false"
-            android:stopWithTask="false"
-            />
+            android:stopWithTask="false" />
+
     </application>
 
 </manifest>
