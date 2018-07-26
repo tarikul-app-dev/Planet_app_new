@@ -16,7 +16,7 @@
         android:roundIcon="@drawable/ic_planet"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity android:name=".activity.SplashScreenActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,7 +43,7 @@
             android:name=".activity.AccountTopUpActivity"
             android:label=""
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" android:label=""/>
         <activity
             android:name=".activity.ContactUsActivity"
             android:label="" />

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/back_image"
     tools:context="planet.it.limited.planetapp.activity.AccountTopUpActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                     android:id="@+id/txv_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recharge"
+                    android:text="@string/buy_credit"
                     android:textSize="22dp"
                     android:layout_marginRight="20dp"
                     />
@@ -46,7 +47,7 @@
                 android:id="@+id/txv_pay_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bkash Payment Method"
+                android:text="bKash Payment Method"
                 android:textSize="22dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -103,7 +104,8 @@
                                 android:drawableTint="#FF4081"
                                 android:singleLine="true"
                                 android:hint="User Name"
-                                android:textColor="#000000"
+                                android:textColor="#000"
+                                android:textColorHint="#000"
                                 android:inputType="text" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -118,6 +120,7 @@
                                 android:layout_marginTop="16dp"
                                 android:singleLine="true"
                                 android:drawableTint="#FF4081"
+                                android:textColorHint="#000"
                                 android:hint="bKash TrxId"
                                 android:textColor="#000000"
                                 android:inputType="text" />

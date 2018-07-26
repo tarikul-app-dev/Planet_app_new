@@ -81,9 +81,9 @@ public class FileToSMSActivity extends AppCompatActivity {
     String userName = "";
     String password = "";
     public ArrayList<ContactModel> contactNumList = new ArrayList<>();
-    Button btnSendMsg;
+    Button btnSendMsg,viewFilePreview;
     Toolbar toolbar;
-    TextView txvMsgCount,txvLengthOfText,txvTotalContacts,txvToolbarText,txvFrom,txvContent,viewFilePreview;
+    TextView txvMsgCount,txvLengthOfText,txvTotalContacts,txvToolbarText,txvFrom,txvContent;
     ContactsDB contactsDB;
     public Constant constant;
     String allCommmaSepNumber = " ";
@@ -127,7 +127,7 @@ public class FileToSMSActivity extends AppCompatActivity {
         txvSender = (AutoCompleteTextView) findViewById(R.id.txv_sender);
         edtContentMsg = (EditText)findViewById(R.id.edt_msg_content);
         btnSendMsg = (Button)findViewById(R.id.btn_send_msg);
-        viewFilePreview = (TextView)findViewById(R.id.txv_preview);
+        viewFilePreview = (Button)findViewById(R.id.btn_preview);
 
         // to set font style
         txvToolbarText.setTypeface(fontCustomization.getMerlin());
@@ -151,7 +151,7 @@ public class FileToSMSActivity extends AppCompatActivity {
         txvSender.setText(senderNumber);
         btnChooseFile.setTransformationMethod(null);
         btnSendMsg.setTransformationMethod(null);
-
+        viewFilePreview.setTransformationMethod(null);
 
         btnChooseFile.setOnClickListener(new View.OnClickListener() {
             @Override

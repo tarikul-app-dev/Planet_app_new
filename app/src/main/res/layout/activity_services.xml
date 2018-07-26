@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/back_image"
     tools:context="planet.it.limited.planetapp.activity.ServicesActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
                     android:id="@+id/txv_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Our Services"
+                    android:text="@string/our_services"
                     android:textSize="22dp"
                     android:layout_marginRight="20dp"
                     />

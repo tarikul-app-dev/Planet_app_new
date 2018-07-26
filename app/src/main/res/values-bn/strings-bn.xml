@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Planet App</string>
+    <string name="payment_one">আপনার বিকাশ একাউন্ট থেকে পেমেন্ট করতে নীচের ধাপগুলো অনুসরণ করুন</string>
+    <string name="payment_two">বিকাশ মোবাইল মেন্যুর সাহায্যে যেভাবে "পেমেন্ট" করবেন</string>
+    <string name="text_bulk_sms">“PLANET IT” ‘Web Based International Bulk SMS Gateway Provider. Provides Best in Class Support &amp; Services. Special Fair Pricing for Corporate Users. SMS API for Application Developers.</string>
+    <string name="text_push_pull">This service is aimed to provide two way SMS communication. Any organization can provide this service to their target customers to pull information by sending SMS. In reply, customers get a push SMS.</string>
+    <string name="text_app_dev">Need a web or mobile application developed? Have an existing application you need to take to the next level? This is exactly what we do all day everyday.</string>
+    <string name="text_mobile_topup">Topup any Bangladeshi GSM mobile anytime from online. Our Mobile Topup app will help to recharge your mobile balance instantly with a friction of second.</string>
+    <string name="text_bulk_sms_one">Mobile Marketing is the easiest way to promote your business. More than 7 Core people are using Mobile in our country. Let everybody know about you. We will provide the SMS service to reach you in every hand. We provide Low Cost Business SMS Service to reduce your Marketing Cost. Planet IT will provide you new service of most effective Marketing with our Web SMS portal.</string>
+    <string name="bulk_sms">Bulk SMS</string>
+    <string name="push_pull">Push Pull</string>
+    <string name="app_development">App Development</string>
+    <string name="mobile_topup">Mobile Topup</string>
+    <string name="lang_dialog_message"> আপনি কি ভাষা পরিবর্তন করতে চান ?</string>
+    <string name="alert_dialog_change_text">পরিবর্তন </string>
+    <string name="alert_dialog_cancel_message">বাতিল </string>
+    <string name="single_sms">একক এসএমএস</string>
+    <string name="contacts_sms">ফোন থেকে এসএমএস</string>
+    <string name="file_to_sms">ফাইল থেকে এসএমএস</string>
+    <string name="settings">সেটিংস </string>
+    <string name="buy_credit">ক্রেডিট ক্রয় </string>
+    <string name="our_services">আমাদের  সার্ভিস </string>
+    <string name="contact_us">যোগাযোগ </string>
+    <string name="language">ভাষা </string>
+    <string-array name="lang_select">
+        <item>ভাষা সিলেক্ট করুন </item>
+        <item>বাংলা</item>
+        <item>English</item>
+    </string-array>
+
+
+    <string name="dashboard">ড্যাশবোর্ড </string>
+
+</resources>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/back_image"
     tools:context=".activity.MainActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_planet_app"
+            android:id="@+id/toolbar_main_dashboard"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -29,7 +30,7 @@
                     android:id="@+id/txv_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dashboard"
+                    android:text="@string/dashboard"
                     android:textSize="22dp"
 
                     />
@@ -46,12 +47,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         >
 
     </GridView>

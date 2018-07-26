@@ -18,33 +18,38 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.util.List;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.util.List;
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.adapter.ButtonAdapter;
 import planet.it.limited.planetapp.database.ContactsDB;
 import planet.it.limited.planetapp.detectContact.ContactWatchService;
 import planet.it.limited.planetapp.utill.FontCustomization;
+import planet.it.limited.planetapp.utill.LanguageUtility;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getBoleanValueSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.saveBoleanValueSharedPreferences;
-
+import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.setValueToSharedPreferences;
+import android.support.v7.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements ButtonAdapter.GridViewButtonInterface{
-    GridView btnGridView;
-    public String[] filesnames = {
-            "Single SMS",
-            "Contacts To SMS",
-            "File To SMS",
-            "Settings",
-            "Account TopUp",
-            "Our Services",
-            "Contact Us"
 
-    };
+    GridView btnGridView;
+    public String[] filesnames = new String[7];
+
     public Drawable[] drawables = new Drawable[7];
     public int colors[] = new int[7];
 
@@ -63,21 +68,34 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
 
     FontCustomization fontCustomization;
     TextView txvToolbarText;
+    AlertDialog b;
+    LanguageUtility languageUtility;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main_dashboard);
+        setSupportActionBar(toolbar);
         initViews();
         startContactLookService();
     }
-
 
     public void initViews(){
         txvToolbarText = (TextView)findViewById(R.id.txv_main);
         fontCustomization = new FontCustomization(MainActivity.this);
         txvToolbarText.setTypeface(fontCustomization.getMerlin());
+
+        filesnames[0] = getString(R.string.single_sms);
+        filesnames[1] = getString(R.string.contacts_sms);
+        filesnames[2] = getString(R.string.file_to_sms);
+        filesnames[3] = getString(R.string.settings);
+        filesnames[4] = getString(R.string.buy_credit);
+        filesnames[5] = getString(R.string.our_services);
+        filesnames[6] = getString(R.string.contact_us);
+
         drawables[0] = this.getResources().getDrawable(R.drawable.ic_sms);
         drawables[1] = this.getResources().getDrawable(R.drawable.ic_contacts);
         drawables[2] = this.getResources().getDrawable(R.drawable.ic_file_to_sms);
@@ -93,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         colors[4] =  ContextCompat.getColor(MainActivity.this, R.color.color_top_up);
         colors[5] =  ContextCompat.getColor(MainActivity.this, R.color.color_services);
         colors[6] =  ContextCompat.getColor(MainActivity.this, R.color.contact_us);
-
+        languageUtility = new LanguageUtility(MainActivity.this);
 
         btnGridView = (GridView)findViewById(R.id.btn_gridview);
 
@@ -326,6 +344,87 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        return true;
+    }
 
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //Sudip: 20170212
+        switch (item.getItemId()) {
+
+            case R.id.menu_language:
+                showChangeLangDialog();
+                break;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+    public void showChangeLangDialog() {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.language_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final Spinner spinner1 = (Spinner) dialogView.findViewById(R.id.spinner1);
+
+//        dialogBuilder.setTitle(getResources().getString(R.string.lang_dialog_title));
+        dialogBuilder.setMessage(getResources().getString(R.string.lang_dialog_message));
+        dialogBuilder.setPositiveButton(R.string.alert_dialog_change_text, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                int langpos = spinner1.getSelectedItemPosition();
+                switch (langpos) {
+                    case 1: //bengali
+
+                        languageUtility.selectLanguage("bn");
+                        setValueToSharedPreferences("language","bn",MainActivity.this);
+                        restartApp();
+
+                        return;
+                    case 2: //english
+
+                        languageUtility.selectLanguage("en");
+                        setValueToSharedPreferences("language","en",MainActivity.this);
+                        restartApp();
+
+                        return;
+
+                    default: //By default set to english
+
+                        languageUtility.selectLanguage("en");
+                        setValueToSharedPreferences("language","en",MainActivity.this);
+                        return;
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton(R.string.alert_dialog_cancel_message, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        b = dialogBuilder.create();
+        b.show();
+    }
+
+    public  void restartApp(){
+        Intent i = getBaseContext().getPackageManager().
+                getLaunchIntentForPackage(getBaseContext().getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+
+    }
 
 }
