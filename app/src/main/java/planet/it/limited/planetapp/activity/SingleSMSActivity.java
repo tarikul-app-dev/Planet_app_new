@@ -100,7 +100,7 @@ public class SingleSMSActivity extends AppCompatActivity {
                  onBackPressed();
             }
         });
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
 
         initViews();
 
@@ -134,7 +134,7 @@ public class SingleSMSActivity extends AppCompatActivity {
         btnSendMsg.setTransformationMethod(null);
 
         // to set font style
-        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
         txvLengthOfText.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvMsgCount.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txtPhoneNo.setTypeface(fontCustomization.getTexgyreHerosRegular());

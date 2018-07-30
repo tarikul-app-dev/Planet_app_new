@@ -87,7 +87,7 @@ public class ContactsToSMSActivity extends AppCompatActivity {
         btnSendMsg.setTransformationMethod(null);
 
         // to set font style
-        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
         txvLengthOfText.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvMsgCount.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvTotalContacts.setTypeface(fontCustomization.getTexgyreHerosRegular());
@@ -134,6 +134,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                     }
 
 
+                }else {
+                    Toast.makeText(ContactsToSMSActivity.this,"Missing recipients and message",Toast.LENGTH_SHORT).show();
                 }
 
             }

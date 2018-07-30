@@ -91,12 +91,6 @@ public class SendSingleSMS {
                 json.put("text",mContentMsg);
 
                 RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
-//                RequestBody requestBody = new FormBody.Builder()
-//
-//                        .add("from",mFromSender)
-//                        .add("to",mToRecipients)
-//                        .add("text",mContentMsg)
-//                        .build();
 
 
                 Request request = new Request.Builder()

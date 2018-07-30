@@ -321,6 +321,5 @@
 
     <integer name="mb_animation">500</integer>
 
-    <string name="mb_button">Button</string>
     <color name="mb_white">#ffffff</color>
 </resources>

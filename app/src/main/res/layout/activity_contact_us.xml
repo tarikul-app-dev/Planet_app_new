@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/back_image"
+    android:background="@drawable/ic_back_image"
     tools:context="planet.it.limited.planetapp.activity.ContactUsActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_contact"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             >
             <RelativeLayout
@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:textSize="22dp"
-            android:textColor="#FF4081"
+            android:textColor="#fff"
             android:layout_marginLeft="10dp"
             />
         <View
@@ -104,8 +104,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="View On Map"
-                        android:textColor="#000000"
-                        android:textSize="15dp"
+                        android:textColor="#fff"
+                        android:textSize="16dp"
                         android:layout_marginRight="02dp"
 
                         />
@@ -128,7 +128,7 @@ Dhaka, Bangladesh."
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:textSize="20dp"
-            android:textColor="#000000"
+            android:textColor="#fff"
             android:layout_marginLeft="10dp"
             />
 
@@ -147,7 +147,7 @@ Dhaka, Bangladesh."
             android:text="Support: service@planetgroupbd.com"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
-            android:textColor="#000000"
+            android:textColor="#fff"
             android:layout_marginLeft="15dp"
             android:textIsSelectable="true"
             />
@@ -174,7 +174,7 @@ Dhaka, Bangladesh."
                     android:text="Hotline:"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
-                    android:textColor="#000000"
+                    android:textColor="#fff"
                     android:layout_marginLeft="15dp"
                     />
                 <TextView
@@ -184,7 +184,7 @@ Dhaka, Bangladesh."
                     android:text="+88 01616 752638"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
-                    android:textColor="#000000"
+                    android:textColor="#fff"
                     android:layout_marginLeft="15dp"
                     />
             </LinearLayout>
@@ -214,7 +214,7 @@ Dhaka, Bangladesh."
                     android:text="Skype:"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
-                    android:textColor="#000000"
+                    android:textColor="#fff"
                     android:layout_marginLeft="15dp"
                     />
                 <TextView
@@ -224,7 +224,7 @@ Dhaka, Bangladesh."
                     android:text="planetgroupbd"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
-                    android:textColor="#000000"
+                    android:textColor="#fff"
                     android:layout_marginLeft="15dp"
                     />
             </LinearLayout>

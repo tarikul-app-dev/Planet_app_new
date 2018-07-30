@@ -64,7 +64,7 @@ public class ContactUsActivity extends AppCompatActivity {
         txvPlanetIT.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvCallHotline.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvCallSkype.setTypeface(fontCustomization.getTexgyreHerosRegular());
-        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
         txvAddress.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvEmail.setTypeface(fontCustomization.getTexgyreHerosRegular());
 

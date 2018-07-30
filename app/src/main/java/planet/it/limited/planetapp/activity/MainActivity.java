@@ -8,11 +8,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,37 +22,37 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.List;
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.adapter.ButtonAdapter;
 import planet.it.limited.planetapp.database.ContactsDB;
 import planet.it.limited.planetapp.detectContact.ContactWatchService;
+import planet.it.limited.planetapp.utill.BalanceTask;
 import planet.it.limited.planetapp.utill.FontCustomization;
 import planet.it.limited.planetapp.utill.LanguageUtility;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getBoleanValueSharedPreferences;
+import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getValueFromSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.saveBoleanValueSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.setValueToSharedPreferences;
 import android.support.v7.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements ButtonAdapter.GridViewButtonInterface{
 
     GridView btnGridView;
-    public String[] filesnames = new String[7];
+    public String[] filesnames = new String[8];
 
-    public Drawable[] drawables = new Drawable[7];
-    public int colors[] = new int[7];
+    public Drawable[] drawables = new Drawable[8];
+    public int colors[] = new int[8];
 
     boolean isReadContacts;
     ContactsDB contactsDB;
@@ -67,12 +68,19 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
     public static boolean checkAutoStartPermission;
 
     FontCustomization fontCustomization;
-    TextView txvToolbarText;
+    TextView txvUserName,txvBalance;
     AlertDialog b;
     LanguageUtility languageUtility;
     Toolbar toolbar;
 
+    String userName = "";
+    String password = " ";
+    String retBalance = " ";
 
+    BalanceTask balanceTask;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +91,23 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         startContactLookService();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void initViews(){
-        txvToolbarText = (TextView)findViewById(R.id.txv_main);
+
+
+        txvUserName = (TextView)findViewById(R.id.txv_user_name);
+        txvBalance = (TextView)findViewById(R.id.txv_balance);
+        userName = getValueFromSharedPreferences("user_name",MainActivity.this);
         fontCustomization = new FontCustomization(MainActivity.this);
-        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvUserName.setTypeface(fontCustomization.getHeadLandOne());
+
+        if(userName!=null){
+            txvUserName.setText(userName);
+        }
+        retBalance = getValueFromSharedPreferences("balance",MainActivity.this);
+        if(retBalance!=null && retBalance.length()>0){
+            txvBalance.setText(retBalance);
+        }
 
         filesnames[0] = getString(R.string.single_sms);
         filesnames[1] = getString(R.string.contacts_sms);
@@ -95,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         filesnames[4] = getString(R.string.buy_credit);
         filesnames[5] = getString(R.string.our_services);
         filesnames[6] = getString(R.string.contact_us);
+        filesnames[7] = getString(R.string.sms_length_check);
 
         drawables[0] = this.getResources().getDrawable(R.drawable.ic_sms);
         drawables[1] = this.getResources().getDrawable(R.drawable.ic_contacts);
@@ -103,14 +125,17 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         drawables[4] = this.getResources().getDrawable(R.drawable.ic_top_up);
         drawables[5] = this.getResources().getDrawable(R.drawable.ic_services);
         drawables[6] = this.getResources().getDrawable(R.drawable.ic_contact_us);
+        drawables[7] = this.getResources().getDrawable(R.drawable.ic_sms_check_length);
 
-        colors[0] = ContextCompat.getColor(MainActivity.this, R.color.md_teal_600);
-        colors[1] =ContextCompat.getColor(MainActivity.this, R.color.color_contacts);
-        colors[2] = ContextCompat.getColor(MainActivity.this, R.color.color_file_to_sms);
-        colors[3] =  ContextCompat.getColor(MainActivity.this, R.color.color_settings);
-        colors[4] =  ContextCompat.getColor(MainActivity.this, R.color.color_top_up);
-        colors[5] =  ContextCompat.getColor(MainActivity.this, R.color.color_services);
-        colors[6] =  ContextCompat.getColor(MainActivity.this, R.color.contact_us);
+        colors[0] = ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[1] =ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[2] = ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[3] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[4] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[5] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[6] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+        colors[7] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+
         languageUtility = new LanguageUtility(MainActivity.this);
 
         btnGridView = (GridView)findViewById(R.id.btn_gridview);
@@ -324,6 +349,11 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
             Intent intent = new Intent(MainActivity.this,ContactUsActivity.class);
             startActivity(intent);
             //  ActivityCompat.finishAffinity(MainActivity.this);
+        }else if(position==7){
+
+            Intent intent = new Intent(MainActivity.this,SMSLengthActivity.class);
+            startActivity(intent);
+            //  ActivityCompat.finishAffinity(MainActivity.this);
         }
 
     }
@@ -344,87 +374,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
-        return true;
-    }
 
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        //Sudip: 20170212
-        switch (item.getItemId()) {
-
-            case R.id.menu_language:
-                showChangeLangDialog();
-                break;
-
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-    public void showChangeLangDialog() {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.language_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final Spinner spinner1 = (Spinner) dialogView.findViewById(R.id.spinner1);
-
-//        dialogBuilder.setTitle(getResources().getString(R.string.lang_dialog_title));
-        dialogBuilder.setMessage(getResources().getString(R.string.lang_dialog_message));
-        dialogBuilder.setPositiveButton(R.string.alert_dialog_change_text, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                int langpos = spinner1.getSelectedItemPosition();
-                switch (langpos) {
-                    case 1: //bengali
-
-                        languageUtility.selectLanguage("bn");
-                        setValueToSharedPreferences("language","bn",MainActivity.this);
-                        restartApp();
-
-                        return;
-                    case 2: //english
-
-                        languageUtility.selectLanguage("en");
-                        setValueToSharedPreferences("language","en",MainActivity.this);
-                        restartApp();
-
-                        return;
-
-                    default: //By default set to english
-
-                        languageUtility.selectLanguage("en");
-                        setValueToSharedPreferences("language","en",MainActivity.this);
-                        return;
-                }
-            }
-        });
-        dialogBuilder.setNegativeButton(R.string.alert_dialog_cancel_message, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //pass
-            }
-        });
-        b = dialogBuilder.create();
-        b.show();
-    }
-
-    public  void restartApp(){
-        Intent i = getBaseContext().getPackageManager().
-                getLaunchIntentForPackage(getBaseContext().getPackageName());
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
-
-    }
 
 }

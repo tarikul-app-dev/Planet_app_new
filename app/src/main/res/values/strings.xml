@@ -28,7 +28,21 @@
     <string name="contact_us">Contact Us</string>
     <string name="language">Language</string>
     <string name="dashboard">Dashboard</string>
-
+    <string name="sms_length_check">SMS Length</string>
+    <string name="enter_the_recipients">Enter the recipients</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="send_message">Send Message</string>
+    <string name="choose_file">Choose File</string>
+    <string name="view_file_example">View File Example</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_sender_number">Enter Sender Number</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="user_name">User Name</string>
+    <string name="bkash_trxid">bKash TrxId</string>
+    <string name="submit">Submit</string>
+    <string name="refresh">Refresh</string>
 
 
     <string-array name="lang_select">

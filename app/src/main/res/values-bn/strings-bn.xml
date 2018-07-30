@@ -22,7 +22,24 @@
     <string name="buy_credit">ক্রেডিট ক্রয় </string>
     <string name="our_services">আমাদের  সার্ভিস </string>
     <string name="contact_us">যোগাযোগ </string>
+    <string name="sms_length_check">এসএমএস লেংথ </string>
     <string name="language">ভাষা </string>
+    <string name="enter_the_recipients">নাম্বার দিন </string>
+    <string name="enter_your_message">এখানে মেসেজ লিখুন </string>
+    <string name="send_message">মেসেজ পাঠান </string>
+    <string name="choose_file">ফাইল নির্বাচন করুন </string>
+    <string name="view_file_example">ফাইল উদাহরণ দেখুন</string>
+    <string name="enter_user_name">আপনার একাউন্ট নাম </string>
+    <string name="enter_password">আপনার পাসওয়ার্ড দিন </string>
+    <string name="enter_sender_number">আপনার সেন্ডার নাম্বার দিন </string>
+    <string name="save">সেভ</string>
+    <string name="update">আপডেট</string>
+    <string name="user_name">ইউজার নাম </string>
+    <string name="bkash_trxid">বিকাশ লেনদেন আইডি  </string>
+    <string name="submit">সাবমিট </string>
+    <string name="refresh">রিফ্রেশ </string>
+    <string name="list_item_lan_settings">language Setting</string>
+
     <string-array name="lang_select">
         <item>ভাষা সিলেক্ট করুন </item>
         <item>বাংলা</item>

@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_image"
+    android:background="@drawable/ic_back_image"
     android:orientation="vertical"
     tools:context="planet.it.limited.planetapp.activity.FileToSMSActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_file_to_sms"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             >
 
@@ -52,14 +52,14 @@
          >
          <Button
              android:id="@+id/btn_choose_file"
-             style="@style/Widget.AppCompat.Button.Colored"
-             android:layout_width="150dp"
-             android:layout_height="45dp"
-             android:layout_marginTop="0dp"
-             android:layout_marginLeft="07dp"
-             android:text="Choose File"
+             android:layout_width="wrap_content"
+             android:layout_height="30dp"
+             android:layout_marginTop="10dp"
+             android:layout_marginLeft="10dp"
+             android:text="@string/choose_file"
              android:layout_gravity="center"
              android:textSize="15dp"
+             android:background="@drawable/capsule_shape_button"
              />
          <TextView
              android:id="@+id/txv_file_extension"
@@ -67,16 +67,16 @@
              android:layout_height="wrap_content"
              android:text="................."
              android:layout_marginTop="10dp"
-             android:layout_marginLeft="170dp"
+             android:layout_marginLeft="190dp"
              android:textSize="17dp"
-             android:textColor="#000"
+             android:textColor="#fff"
 
              />
          <Button
              android:id="@+id/btn_preview"
              android:layout_width="wrap_content"
              android:layout_height="30dp"
-             android:text="View File Example"
+             android:text="@string/view_file_example"
              android:layout_marginTop="50dp"
              android:layout_marginLeft="10dp"
              android:textColor="#000"
@@ -110,7 +110,7 @@
                 android:text="From:"
                 android:layout_marginTop="12dp"
                 android:textSize="20dp"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:layout_marginLeft="05dp"
                 />
             <LinearLayout
@@ -127,8 +127,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Select the sender "
                     android:focusable="false"
-                    android:textColorHint="#000"
-                    android:textColor="#000"
+                    android:textColorHint="#fff"
+                    android:textColor="#fff"
                     android:imeOptions="actionDone"/>
             </LinearLayout>
 
@@ -141,7 +141,7 @@
             android:text="Content:"
             android:layout_marginTop="10dp"
             android:textSize="20dp"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:layout_marginLeft="10dp"
 
             />
@@ -174,10 +174,10 @@
                     android:layout_marginTop="04dp"
                     android:imeOptions="actionDone"
                     android:background="@null"
-                    android:hint="Enter your message"
+                    android:hint="@string/enter_your_message"
                     android:layout_gravity="center_horizontal"
-                    android:textColorHint="#000"
-                    android:textColor="#000"
+                    android:textColorHint="#fff"
+                    android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="top"
                     />
@@ -196,7 +196,7 @@
                     android:text="160"
                     android:layout_marginLeft="05dp"
                     android:textSize="20dp"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     />
                 <TextView
                     android:id="@+id/txv_text"
@@ -205,7 +205,7 @@
                     android:text="Characters Remaining"
                     android:layout_marginLeft="15dp"
                     android:textSize="17dp"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     />
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                             android:text="1"
                             android:layout_marginRight="10dp"
                             android:textSize="20dp"
-                            android:textColor="#000"
+                            android:textColor="#fff"
                             />
                         <TextView
                             android:id="@+id/txv_abc"
@@ -234,7 +234,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="20dp"
                             android:textSize="17dp"
-                            android:textColor="#000"
+                            android:textColor="#fff"
                             />
                     </LinearLayout>
 
@@ -248,18 +248,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+
                 >
                 <Button
                     android:id="@+id/btn_send_msg"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_alignParentBottom="true"
-                    android:text="Send Message"
-                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/capsule_shape_button"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/send_message"
                     android:textSize="18dp"
+                    android:textColor="#000"
+                    android:layout_centerInParent="true"
+
                     />
             </RelativeLayout>
 

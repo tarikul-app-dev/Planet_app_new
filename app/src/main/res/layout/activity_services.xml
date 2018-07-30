@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/back_image"
+    android:background="@drawable/ic_back_image"
     tools:context="planet.it.limited.planetapp.activity.ServicesActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_services"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             >
             <RelativeLayout
@@ -71,7 +71,7 @@
               android:layout_height="wrap_content"
               android:layout_below="@+id/imgv_bulk_sms"
               android:text="@string/bulk_sms"
-              android:textColor="#000"
+              android:textColor="#fff"
               android:textSize="30dp"
 
               />
@@ -89,9 +89,10 @@
               android:text="@string/text_bulk_sms"
               android:layout_below="@id/headline_one"
               android:layout_marginTop="10dp"
-              android:textColor="#000"
+              android:textColor="#fff"
               android:layout_marginLeft="10dp"
               android:layout_marginRight="10dp"
+              android:textSize="16dp"
               />
       </LinearLayout>
       <View
@@ -129,7 +130,7 @@
                 android:text="@string/push_pull"
                 android:layout_below="@id/imgv_push_pull"
                 android:textSize="30dp"
-                android:textColor="#000"
+                android:textColor="#fff"
                 />
 
 
@@ -145,9 +146,10 @@
                 android:text="@string/text_push_pull"
                 android:layout_below="@id/headline_one"
                 android:layout_marginTop="10dp"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:textSize="16dp"
                 />
         </LinearLayout>
         <View
@@ -184,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imgv_app_dev"
                         android:text="@string/app_development"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:textSize="30dp"
 
                         />
@@ -204,7 +206,9 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/text_app_dev"
-                        android:textColor="#000" />
+                        android:textColor="#fff"
+                        android:textSize="16dp"
+                        />
                 </LinearLayout>
 
                 <View
@@ -241,7 +245,7 @@
                         android:layout_below="@id/imgv_mobile_top_up"
 
                         android:text="@string/mobile_topup"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:textSize="30dp" />
 
 
@@ -259,7 +263,9 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/text_mobile_topup"
-                        android:textColor="#000" />
+                        android:textColor="#fff"
+                        android:textSize="16dp"
+                        />
                 </LinearLayout>
 
                 <View

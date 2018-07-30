@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#34495E</color>
+    <color name="colorPrimary">#007B8E</color>
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -12,4 +12,12 @@
     <color name="color_services">#000</color>
     <color name="contact_us">#6E8839</color>
     <color name="color_white">#fff</color>
+    <color name="sms_check_length">#FD5492</color>
+
+    <color name="color1">#845EC2</color>
+    <color name="color2">#D65DB1</color>
+    <color name="color3">#FF6F91</color>
+    <color name="color4">#FF9671</color>
+    <color name="color5">#FFC75F</color>
+    <color name="color6">#F9F871</color>
 </resources>

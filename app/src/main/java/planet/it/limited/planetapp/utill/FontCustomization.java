@@ -9,19 +9,19 @@ import android.graphics.Typeface;
 
 public class FontCustomization {
     public Typeface TexgyreHerosRegular;
-    public Typeface merlin;
+    public Typeface headLandOne;
     Context context;
 
     public FontCustomization(Context mContext){
         this.context = mContext;
         this.TexgyreHerosRegular = Typeface.createFromAsset(context.getAssets(),"texgyreheros-regular.otf") ;
-        this.merlin = Typeface.createFromAsset(context.getAssets(),"merlin.ttf") ;
+        this.headLandOne = Typeface.createFromAsset(context.getAssets(),"headland_one.ttf") ;
 
     }
     public Typeface getTexgyreHerosRegular(){
         return TexgyreHerosRegular;
     }
-    public Typeface getMerlin(){
-        return merlin;
+    public Typeface getHeadLandOne(){
+        return headLandOne;
     }
 }

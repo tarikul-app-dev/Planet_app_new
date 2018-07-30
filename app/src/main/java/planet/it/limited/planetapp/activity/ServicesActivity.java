@@ -33,7 +33,7 @@ public class ServicesActivity extends AppCompatActivity {
 
             }
         });
-
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         initViews();
     }
 

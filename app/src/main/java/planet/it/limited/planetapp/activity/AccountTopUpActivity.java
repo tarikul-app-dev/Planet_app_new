@@ -20,16 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import planet.it.limited.planetapp.R;
@@ -56,7 +51,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_top_up);
+        setContentView(R.layout.activity_buy_credit);
         //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         toolbar = (Toolbar)findViewById(R.id.toolbar_top_up_activity);
         setSupportActionBar(toolbar);
@@ -91,7 +86,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
         imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 
         // font style
-        txvToolbarText.setTypeface(fontCustomization.getMerlin());
+        txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
         txvPayHead.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvOne.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvTwo.setTypeface(fontCustomization.getTexgyreHerosRegular());

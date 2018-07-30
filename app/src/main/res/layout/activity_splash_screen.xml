@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#34495E"
+    android:background="@drawable/ic_back_image"
     tools:context=".activity.SplashScreenActivity">
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/ic_planet"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        />
+        >
+        <ImageView
+            android:id="@+id/imgv_planet"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/ic_planet"
+            android:layout_gravity="center"
+            />
+
+
+    </FrameLayout>
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/material_design_progressbar"

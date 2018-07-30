@@ -19,6 +19,7 @@ import planet.it.limited.planetapp.activity.AccountTopUpActivity;
 import planet.it.limited.planetapp.activity.ContactUsActivity;
 import planet.it.limited.planetapp.activity.ContactsToSMSActivity;
 import planet.it.limited.planetapp.activity.FileToSMSActivity;
+import planet.it.limited.planetapp.activity.SMSLengthActivity;
 import planet.it.limited.planetapp.activity.ServicesActivity;
 import planet.it.limited.planetapp.activity.SettingsActivity;
 import planet.it.limited.planetapp.activity.SingleSMSActivity;
@@ -82,14 +83,14 @@ public class ButtonAdapter extends BaseAdapter {
 
         imageButton.setBackgroundDrawable(drawables[position]);
         textView.setText(filesnames[position]);
-        frameLayoutBtn.setBackgroundColor(colors[position]);
+       // frameLayoutBtn.setBackgroundColor(colors[position]);
 
-        if(filesnames[position].equals("SMS")){
-            textView.setTextColor(Color.WHITE);
-        }
+//        if(filesnames[position].equals("SMS")){
+//            textView.setTextColor(Color.WHITE);
+//        }
 
 
-       textView.setTypeface(fontCustomization.getMerlin());
+       textView.setTypeface(fontCustomization.getHeadLandOne());
 
 
 
@@ -133,6 +134,10 @@ public class ButtonAdapter extends BaseAdapter {
                 }
                 else if(position==6){
                     Intent intent = new Intent(mContext,ContactUsActivity.class);
+                    mContext.startActivity(intent);
+                    // ((Activity)mContext).finish();
+                } else if(position==7){
+                    Intent intent = new Intent(mContext,SMSLengthActivity.class);
                     mContext.startActivity(intent);
                     // ((Activity)mContext).finish();
                 }
