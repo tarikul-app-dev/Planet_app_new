@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import planet.it.limited.planetapp.R;
+import planet.it.limited.planetapp.utill.BalanceTask;
+import planet.it.limited.planetapp.utill.Constant;
 import planet.it.limited.planetapp.utill.FontCustomization;
 import planet.it.limited.planetapp.utill.LanguageUtility;
 
@@ -27,12 +31,14 @@ import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.setVal
 
 public class SettingsActivity extends AppCompatActivity {
     AutoCompleteTextView edtUserName,edtPass,edtSenderNum;
-    Button btnSave,btnUpdate;
+    Button btnSave,btnReset;
     TextView txvUserName,txvPassword,txvSenderNum,txvToolbarText;
     Toolbar toolbar;
     FontCustomization fontCustomization;
     AlertDialog b;
     LanguageUtility languageUtility;
+    BalanceTask balanceTask;
+    public Constant constant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +56,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+       // overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         initViews();
     }
 
     public void initViews(){
+        balanceTask = new BalanceTask(SettingsActivity.this);
+        constant = new Constant(SettingsActivity.this);
         languageUtility = new LanguageUtility(SettingsActivity.this);
         fontCustomization = new FontCustomization(SettingsActivity.this);
         txvToolbarText = (TextView)findViewById(R.id.txv_main);
@@ -65,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
         edtPass = (AutoCompleteTextView) findViewById(R.id.txv_password);
         edtSenderNum = (AutoCompleteTextView) findViewById(R.id.txv_sender);
         btnSave = (Button)findViewById(R.id.btn_save);
-        btnUpdate = (Button)findViewById(R.id.btn_update);
+        btnReset = (Button)findViewById(R.id.btn_reset);
 
         // to set font style
         txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
@@ -76,28 +84,46 @@ public class SettingsActivity extends AppCompatActivity {
         edtPass.setTypeface(fontCustomization.getTexgyreHerosRegular());
         edtSenderNum.setTypeface(fontCustomization.getTexgyreHerosRegular());
         btnSave.setTypeface(fontCustomization.getTexgyreHerosRegular());
-        btnUpdate.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        btnReset.setTypeface(fontCustomization.getTexgyreHerosRegular());
         btnSave.setTransformationMethod(null);
-        btnUpdate.setTransformationMethod(null);
+        btnReset.setTransformationMethod(null);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToSharedPreferences("user_name",edtUserName.getText().toString(),SettingsActivity.this);
-                saveToSharedPreferences("pass_word",edtPass.getText().toString(),SettingsActivity.this);
+
+                String userName = edtUserName.getText().toString();
+                String password = edtPass.getText().toString();
+
+                saveToSharedPreferences("user_name",userName,SettingsActivity.this);
+                saveToSharedPreferences("pass_word",password,SettingsActivity.this);
                 saveToSharedPreferences("sender_number",edtSenderNum.getText().toString(),SettingsActivity.this);
 
                 Toast.makeText(SettingsActivity.this,"You Info Save Success",Toast.LENGTH_SHORT).show();
+
+                if(userName!=null && password!=null){
+                    if(userName.length()>0 && password.length()>0){
+                        if(constant.isConnectingToInternet()){
+                            balanceTask.getBalance(userName,password);
+                        }
+
+                    }
+                }
+
             }
         });
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToSharedPreferences("user_name",edtUserName.getText().toString(),SettingsActivity.this);
-                saveToSharedPreferences("pass_word",edtPass.getText().toString(),SettingsActivity.this);
-                saveToSharedPreferences("sender_number",edtSenderNum.getText().toString(),SettingsActivity.this);
-                Toast.makeText(SettingsActivity.this,"You Info Update Success",Toast.LENGTH_SHORT).show();
+                edtUserName.setText("");
+                edtPass.setText("");
+                edtSenderNum.setText("");
+                saveToSharedPreferences("user_name","",SettingsActivity.this);
+                saveToSharedPreferences("pass_word","",SettingsActivity.this);
+                saveToSharedPreferences("sender_number","",SettingsActivity.this);
+                saveToSharedPreferences("balance","",SettingsActivity.this);
+                Toast.makeText(SettingsActivity.this,"You Info Reset Success",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -206,4 +232,6 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(i);
 
     }
+
+
 }

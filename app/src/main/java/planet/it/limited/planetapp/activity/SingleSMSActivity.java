@@ -100,7 +100,7 @@ public class SingleSMSActivity extends AppCompatActivity {
                  onBackPressed();
             }
         });
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+    //    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
 
         initViews();
 

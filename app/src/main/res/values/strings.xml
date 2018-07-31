@@ -38,7 +38,7 @@
     <string name="enter_password">Enter Password</string>
     <string name="enter_sender_number">Enter Sender Number</string>
     <string name="save">Save</string>
-    <string name="update">Update</string>
+    <string name="reset">Clear</string>
     <string name="user_name">User Name</string>
     <string name="bkash_trxid">bKash TrxId</string>
     <string name="submit">Submit</string>

@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
     String userName = "";
     String password = " ";
     String retBalance = " ";
+    String defaultUserName = "planet user";
 
     BalanceTask balanceTask;
 
@@ -93,17 +94,20 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void initViews(){
-
-
-        txvUserName = (TextView)findViewById(R.id.txv_user_name);
+        txvUserName = (TextView)findViewById(R.id.txv_user_main);
         txvBalance = (TextView)findViewById(R.id.txv_balance);
         userName = getValueFromSharedPreferences("user_name",MainActivity.this);
+
+
+        if(userName!=null && userName.length()>0){
+            txvUserName.setText(userName);
+        }else {
+            txvUserName.setText(defaultUserName);
+        }
+
         fontCustomization = new FontCustomization(MainActivity.this);
         txvUserName.setTypeface(fontCustomization.getHeadLandOne());
 
-        if(userName!=null){
-            txvUserName.setText(userName);
-        }
         retBalance = getValueFromSharedPreferences("balance",MainActivity.this);
         if(retBalance!=null && retBalance.length()>0){
             txvBalance.setText(retBalance);
@@ -375,6 +379,26 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String userName = getValueFromSharedPreferences("user_name",MainActivity.this); ;
+
+        if(userName!=null){
+            txvUserName.setText(userName);
+        }else {
+            txvUserName.setText(defaultUserName);
+        }
+        retBalance = getValueFromSharedPreferences("balance",MainActivity.this);
+        if(retBalance!=null && retBalance.length()>0){
+            txvBalance.setText(retBalance);
+        }else {
+            txvBalance.setText("0.0");
+        }
+
+
+    }
 
 
 }

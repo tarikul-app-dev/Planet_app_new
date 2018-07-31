@@ -33,12 +33,13 @@
     <string name="enter_password">আপনার পাসওয়ার্ড দিন </string>
     <string name="enter_sender_number">আপনার সেন্ডার নাম্বার দিন </string>
     <string name="save">সেভ</string>
-    <string name="update">আপডেট</string>
+
     <string name="user_name">ইউজার নাম </string>
     <string name="bkash_trxid">বিকাশ লেনদেন আইডি  </string>
     <string name="submit">সাবমিট </string>
     <string name="refresh">রিফ্রেশ </string>
     <string name="list_item_lan_settings">language Setting</string>
+    <string name="reset">ক্লিয়ার </string>
 
     <string-array name="lang_select">
         <item>ভাষা সিলেক্ট করুন </item>

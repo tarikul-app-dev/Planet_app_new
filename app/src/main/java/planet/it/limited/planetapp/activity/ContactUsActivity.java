@@ -23,12 +23,13 @@ public class ContactUsActivity extends AppCompatActivity {
     public static String TAG = "cookie";
     public static String TAG_PRO = "progress";
     ImageView imgvHome,imgvMap;
-    TextView txvMap,txvCallHotline,txvCallSkype,txvPlanetIT,txvAddress,txvEmail;
+    TextView txvMap,txvCallHotline,txvCallSkype,txvPlanetIT,txvAddress,txvEmail,txvFacebook,txvFBookHead;
     MaterialDialog alert;
     public static final int REQUEST_PERM_CALL = 102;
 
     FontCustomization fontCustomization;
     TextView txvToolbarText;
+    Intent  fIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
             }
         });
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+       // overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         initViews();
         txvPlanetIT.startAnimation(AnimationUtils.loadAnimation(this, R.anim.text_animate));
     }
@@ -58,6 +59,8 @@ public class ContactUsActivity extends AppCompatActivity {
         //txvContactUs = (TextView)findViewById(R.id.txv_main);
         txvAddress = (TextView)findViewById(R.id.txv_address);
         txvEmail = (TextView)findViewById(R.id.txv_email);
+        txvFacebook = (TextView)findViewById(R.id.txv_facebook);
+        txvFBookHead = (TextView)findViewById(R.id.txv_fbook_head);
         txvToolbarText = (TextView)findViewById(R.id.txv_main);
 
         fontCustomization = new FontCustomization(ContactUsActivity.this);
@@ -67,7 +70,8 @@ public class ContactUsActivity extends AppCompatActivity {
         txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
         txvAddress.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvEmail.setTypeface(fontCustomization.getTexgyreHerosRegular());
-
+        txvFacebook.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        txvFBookHead.setTypeface(fontCustomization.getTexgyreHerosRegular());
 
 
         imgvMap.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +123,22 @@ public class ContactUsActivity extends AppCompatActivity {
                 startActivity(skype);
             }
         });
-        //txvPlanetIT.startAnimation(AnimationUtils.loadAnimation(this, R.anim.text_animate));
+
+        txvFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+               //  fIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + "facebook.com/PlanetGroupBD/"));
+                    fIntent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + "PlanetGroupBD/"));
+                 startActivity(fIntent);
+                } catch (Exception e) {
+                    fIntent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + "PlanetGroupBD/"));
+                    startActivity(fIntent);
+                }
+            }
+        });
+
+
     }
 
     @Override

@@ -36,6 +36,8 @@ public class SendSingleSMS {
     Context mContext;
     String  singleSMSAPI = "";
     String messageId = "";
+   // String status = " ";
+
     public static SingleSMSActivity singleSMSActivity;
     private Dialog loadingDialog;
 
@@ -113,11 +115,18 @@ public class SendSingleSMS {
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         JSONArray jArray1 = jsonObject.getJSONArray("messages");
+                       // JSONObject jsonObject1 = new JSONObject(jArray1);
+
                         for(int i = 0; i < jArray1 .length(); i++)
                         {
                             JSONObject object1 = jArray1.getJSONObject(i);
 
                            messageId = object1.getString("messageId");
+
+//                           String searchStatus = object1.getString("status");
+//                           JSONObject jsonObject1 = new JSONObject(searchStatus);
+//                           status = jsonObject1.getString("groupName");
+
 
                         }
                         ((Activity)mContext).runOnUiThread (new Thread(new Runnable() {
@@ -136,6 +145,7 @@ public class SendSingleSMS {
                     }
 
                 } else {
+
                     ((Activity)mContext).runOnUiThread (new Thread(new Runnable() {
                         public void run() {
                             loadingDialog.cancel();

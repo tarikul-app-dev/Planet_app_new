@@ -41,7 +41,6 @@ public class BalanceTask {
   public void getBalance(String userName ,String password){
             RetBalanceTask retBalanceTask = new RetBalanceTask(userName,password);
             retBalanceTask.execute();
-
   }
 
     public class RetBalanceTask extends AsyncTask<String, Integer, String> {
@@ -103,7 +102,7 @@ public class BalanceTask {
                     }
 
                 } else {
-
+                    saveToSharedPreferences("balance","",mContext);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

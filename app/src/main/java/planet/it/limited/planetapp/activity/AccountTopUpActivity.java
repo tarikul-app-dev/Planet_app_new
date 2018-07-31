@@ -63,7 +63,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
 
             }
         });
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+        //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
 
         initViews();
 

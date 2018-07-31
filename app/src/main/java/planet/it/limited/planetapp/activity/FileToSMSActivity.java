@@ -110,7 +110,7 @@ public class FileToSMSActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+        //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         initViews();
     }
 
@@ -141,6 +141,7 @@ public class FileToSMSActivity extends AppCompatActivity {
         txvFrom.setTypeface(fontCustomization.getTexgyreHerosRegular());
         txvContent.setTypeface(fontCustomization.getTexgyreHerosRegular());
         btnChooseFile.setTypeface(fontCustomization.getTexgyreHerosRegular());
+        viewFilePreview.setTypeface(fontCustomization.getTexgyreHerosRegular());
 
         senderNumber = getValueFromSharedPreferences("sender_number",FileToSMSActivity.this);
         userName = getValueFromSharedPreferences("user_name",FileToSMSActivity.this);
