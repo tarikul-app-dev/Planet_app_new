@@ -40,7 +40,7 @@
             android:label=""
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AccountTopUpActivity"
+            android:name=".activity.BuyCreditActivity"
             android:label=""
             android:windowSoftInputMode="adjustPan" />
         <activity

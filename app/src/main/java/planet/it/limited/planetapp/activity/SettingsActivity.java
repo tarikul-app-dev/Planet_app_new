@@ -1,13 +1,17 @@
 package planet.it.limited.planetapp.activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,9 +19,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.utill.BalanceTask;
@@ -29,6 +36,7 @@ import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getVal
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.saveToSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.setValueToSharedPreferences;
 
+
 public class SettingsActivity extends AppCompatActivity {
     AutoCompleteTextView edtUserName,edtPass,edtSenderNum;
     Button btnSave,btnReset;
@@ -39,6 +47,17 @@ public class SettingsActivity extends AppCompatActivity {
     LanguageUtility languageUtility;
     BalanceTask balanceTask;
     public Constant constant;
+    public static boolean checkBalance;
+
+    private TextView txtProgress;
+    private ProgressBar progressBar;
+    private int pStatus = 0;
+    private Handler handler = new Handler();
+    RelativeLayout rlProgress;
+    //boolean isCheckUserAndPassword;
+    public static String userName = " ";
+    public static String password = " ";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +69,9 @@ public class SettingsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
-
+                //onBackPressed();
+                Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -61,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void initViews(){
+
         balanceTask = new BalanceTask(SettingsActivity.this);
         constant = new Constant(SettingsActivity.this);
         languageUtility = new LanguageUtility(SettingsActivity.this);
@@ -74,6 +95,9 @@ public class SettingsActivity extends AppCompatActivity {
         edtSenderNum = (AutoCompleteTextView) findViewById(R.id.txv_sender);
         btnSave = (Button)findViewById(R.id.btn_save);
         btnReset = (Button)findViewById(R.id.btn_reset);
+        txtProgress = (TextView) findViewById(R.id.txtProgress);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        rlProgress = (RelativeLayout)findViewById(R.id.rl_progress);
 
         // to set font style
         txvToolbarText.setTypeface(fontCustomization.getHeadLandOne());
@@ -92,23 +116,44 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String userName = edtUserName.getText().toString();
-                String password = edtPass.getText().toString();
+                  userName = edtUserName.getText().toString();
+                  password = edtPass.getText().toString();
 
                 saveToSharedPreferences("user_name",userName,SettingsActivity.this);
                 saveToSharedPreferences("pass_word",password,SettingsActivity.this);
                 saveToSharedPreferences("sender_number",edtSenderNum.getText().toString(),SettingsActivity.this);
 
-                Toast.makeText(SettingsActivity.this,"You Info Save Success",Toast.LENGTH_SHORT).show();
 
-                if(userName!=null && password!=null){
                     if(userName.length()>0 && password.length()>0){
                         if(constant.isConnectingToInternet()){
+                            rlProgress.setVisibility(View.VISIBLE);
+                            startProgressBar();
                             balanceTask.getBalance(userName,password);
                         }
 
+                    }else {
+                        Toast.makeText(SettingsActivity.this, "User Name or Password empty,Must give user name and password", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                }
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                    if(checkBalance){
+                        String msgId = "You Info Save Success" ;
+                        rlProgress.setVisibility(View.GONE);
+                        openDialog(msgId,true);
+
+                    }else {
+                        String msgId = "User Name Or Password Not Valid ! please give valid user name and password";
+                        rlProgress.setVisibility(View.GONE);
+                        openDialog(msgId,false);
+
+                    }
+
+                    }
+                },4000);// set time as per your requirement
+
 
             }
         });
@@ -127,6 +172,31 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+    public void startProgressBar(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (pStatus < 100) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setProgress(pStatus);
+                            txtProgress.setText(pStatus + " %");
+                        }
+                    });
+                    try {
+                        Thread.sleep(40);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    pStatus++;
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -179,7 +249,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void showChangeLangDialog() {
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SettingsActivity.this, R.style.AlertDialogStyle);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.language_dialog, null);
         dialogBuilder.setView(dialogView);
@@ -233,5 +303,38 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    public void openDialog(String msgId, final boolean isCheckUserAndPassword) {
+        final Dialog dialog = new Dialog(SettingsActivity.this); // Context, this, etc.
+        dialog.setContentView(R.layout.custom_dialog);
+        TextView txvResponseMsg = (TextView) dialog.findViewById(R.id.dialog_info);
+        txvResponseMsg.setText(msgId);
+        Button okButton = (Button) dialog.findViewById(R.id.dialog_ok);
+//        Button cancleButton = (Button) dialog.findViewById(R.id.dialog_cancel);
 
+        okButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if(isCheckUserAndPassword){
+                    ActivityCompat.finishAffinity(SettingsActivity.this);
+                    Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }else {
+                    ActivityCompat.finishAffinity(SettingsActivity.this);
+                    Intent intent = new Intent(SettingsActivity.this,SettingsActivity.class);
+                    startActivity(intent);
+                }
+                dialog.dismiss();
+            }
+        });
+//        cancleButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//            }
+//        });
+
+        dialog.show();
+    }
 }

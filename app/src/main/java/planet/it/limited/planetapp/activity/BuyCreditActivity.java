@@ -31,7 +31,7 @@ import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.utill.Constant;
 import planet.it.limited.planetapp.utill.FontCustomization;
 
-public class AccountTopUpActivity extends AppCompatActivity {
+public class BuyCreditActivity extends AppCompatActivity {
     Toolbar toolbar;
     EditText edtUserName,edtBTrans;
     Button btnRefresh,btnSubmit;
@@ -70,7 +70,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
     }
 
     public void initViews(){
-        fontCustomization = new FontCustomization(AccountTopUpActivity.this);
+        fontCustomization = new FontCustomization(BuyCreditActivity.this);
         txvToolbarText = (TextView)findViewById(R.id.txv_main);
         txvPayHead = (TextView)findViewById(R.id.txv_pay_method);
         txvOne = (TextView)findViewById(R.id.txv_one);
@@ -123,7 +123,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(edtUserName.getText().toString().isEmpty()){
-                    Toast.makeText(AccountTopUpActivity.this, "You must give user name and Transaction Id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuyCreditActivity.this, "You must give user name and Transaction Id", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
@@ -133,7 +133,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
                     bKashAPI =  Constant.bkashAPI + "user=" + userName + "&trx=" +  bKashTrxID;
                     new SubmitPaymantAsync().execute();
                 }else {
-                    Toast.makeText(AccountTopUpActivity.this,"Invalid User", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BuyCreditActivity.this,"Invalid User", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -148,13 +148,13 @@ public class AccountTopUpActivity extends AppCompatActivity {
         });
 
         if(!isConnectingToInternet()){
-            Toast.makeText(AccountTopUpActivity.this,"OOPS,Your Device is Offline,Please Connect Net for Buy Credit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BuyCreditActivity.this,"OOPS,Your Device is Offline,Please Connect Net for Buy Credit", Toast.LENGTH_SHORT).show();
         }
 
     }
 
     public void openDialog(String responseText) {
-        final Dialog dialog = new Dialog(AccountTopUpActivity.this); // Context, this, etc.
+        final Dialog dialog = new Dialog(BuyCreditActivity.this); // Context, this, etc.
         dialog.setContentView(R.layout.custom_dialog);
         TextView txvResponseMsg = (TextView) dialog.findViewById(R.id.dialog_info);
         txvResponseMsg.setText(responseText);
@@ -166,7 +166,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(responseBodyText.equals("Payment Successful")){
-                    Intent intent = new Intent(AccountTopUpActivity.this,MainActivity.class);
+                    Intent intent = new Intent(BuyCreditActivity.this,MainActivity.class);
                     startActivity(intent);
                 }else {
                     edtUserName.setText("");
@@ -191,7 +191,7 @@ public class AccountTopUpActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loadingDialog = ProgressDialog.show(AccountTopUpActivity.this, "Please wait", "Loading...");
+            loadingDialog = ProgressDialog.show(BuyCreditActivity.this, "Please wait", "Loading...");
         }
 
         @Override

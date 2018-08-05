@@ -53,6 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             }
         }
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import planet.it.limited.planetapp.R;
+import planet.it.limited.planetapp.adapter.ConToSMSAdapter;
 import planet.it.limited.planetapp.database.ContactsDB;
+import planet.it.limited.planetapp.model.ConToSMSM;
 import planet.it.limited.planetapp.model.ContactModel;
 import planet.it.limited.planetapp.utill.Constant;
 import planet.it.limited.planetapp.utill.FontCustomization;
@@ -39,10 +43,14 @@ public class ContactsToSMSActivity extends AppCompatActivity {
     ContactsDB contactsDB;
     public Constant constant;
     ArrayList<String> allNumberList;
-    String allCommmaSepNumber = " ";
+    ArrayList<ConToSMSM> allContactList = new ArrayList<>();
     SendMultipleSMS sendMultipleSMS;
     TextView txvToolbarText;
     FontCustomization fontCustomization;
+    ListView lvMultiSelect;
+    LinearLayout linLayForm,linLayListView;
+    ConToSMSAdapter conToSMSAdapter;
+    Button btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +89,10 @@ public class ContactsToSMSActivity extends AppCompatActivity {
         txvTotalConHead = (TextView)findViewById(R.id.txv_total_contact);
         txvFrom = (TextView)findViewById(R.id.txv_from);
         txvContent = (TextView)findViewById(R.id.txv_content);
+        lvMultiSelect = (ListView)findViewById(R.id.lv_con_to_sms);
+        linLayForm = (LinearLayout)findViewById(R.id.linlayout_form);
+        linLayListView = (LinearLayout)findViewById(R.id.lin_contact_listview);
+        btnDone = (Button)findViewById(R.id.btn_done);
 
         constant = new Constant(ContactsToSMSActivity.this);
         sendMultipleSMS = new SendMultipleSMS(ContactsToSMSActivity.this);
@@ -100,6 +112,7 @@ public class ContactsToSMSActivity extends AppCompatActivity {
 
         allNumberList = new ArrayList<>();
         contactNumList = contactsDB.getOnlyNumber();
+
         txvTotalContacts.setText(String.valueOf(contactNumList.size()));
         txvSender.setText(senderNumber);
         for(int i=0;i<contactNumList.size();i++){
@@ -112,6 +125,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
             }
             allNumberList.add(toRecipients);
         }
+
+        allContactList = contactsDB.getInputData();
 
 
         btnSendMsg.setOnClickListener(new View.OnClickListener() {
@@ -148,18 +163,57 @@ public class ContactsToSMSActivity extends AppCompatActivity {
         final TextWatcher txwatcher = new TextWatcher() {
             int smsLength =0;
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                smsLength = start;
+                int smsTotalChar = 160 ;
+                if(start>0){
+                    // int smsCount = smsTotalChar - start;
+                    if(start<=160){
+                        txvMsgCount.setText("1");
+                    }
+                    if(start>160 && start<305){
+                        txvMsgCount.setText("2");
+                    }
+
+                    if(start>305 && start<457){
+                        txvMsgCount.setText("3");
+                    }
+                    if(start>457 && start<609){
+                        txvMsgCount.setText("4");
+                    }
+
+                    if(start>609 && start<761){
+                        txvMsgCount.setText("5");
+                    }
+                    if(start>761 && start<913){
+                        txvMsgCount.setText("6");
+                    }
+                    if(start>913 && start<1065){
+                        txvMsgCount.setText("7");
+                    }
+
+                    if(start>1065 && start<1217){
+                        txvMsgCount.setText("8");
+                    }
+
+                    if(start>1217 && start<1369){
+                        txvMsgCount.setText("9");
+                    }
+
+                    if(start>1369){
+                        txvMsgCount.setText("10");
+                    }
+                }
+
 
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 smsLength = s.length();
                 int smsTotalChar = 160 ;
                 if(s.length()>0){
                     int smsCount = smsTotalChar - s.length();
                     if(smsCount>0){
                         txvLengthOfText.setText(String.valueOf(smsCount));
-
                     }
                     if(smsLength>159){
                         int secTotalSMSCount = 145;
@@ -170,7 +224,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(SecSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(SecSMSCount));
                         }
-                        if(s.length()==161){
+
+                        if(s.length()>160 && s.length()<305){
                             txvMsgCount.setText("2");
                         }
 
@@ -185,7 +240,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(thirdSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(thirdSMSCount));
                         }
-                        if(s.length()==305){
+
+                        if(s.length()>305 && s.length()<457){
                             txvMsgCount.setText("3");
                         }
 
@@ -200,7 +256,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(fourSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(fourSMSCount));
                         }
-                        if(s.length()==457){
+
+                        if(s.length()>457 && s.length()<609){
                             txvMsgCount.setText("4");
                         }
 
@@ -215,7 +272,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(fiveSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(fiveSMSCount));
                         }
-                        if(s.length()==609){
+
+                        if(s.length()>609 && s.length()<761){
                             txvMsgCount.setText("5");
                         }
 
@@ -230,10 +288,10 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(sixSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(sixSMSCount));
                         }
-                        if(s.length()==761){
+
+                        if(s.length()>761 && s.length()<913){
                             txvMsgCount.setText("6");
                         }
-
                     }
                     if(smsLength>912){
                         int sevenTotalSMSCount = 152;
@@ -244,7 +302,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(sevSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(sevSMSCount));
                         }
-                        if(s.length()==913){
+
+                        if(s.length()>913 && s.length()<1065){
                             txvMsgCount.setText("7");
                         }
 
@@ -259,7 +318,8 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(eightSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(eightSMSCount));
                         }
-                        if(s.length()==1065){
+
+                        if(s.length()>1065 && s.length()<1217){
                             txvMsgCount.setText("8");
                         }
 
@@ -274,10 +334,10 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(nineSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(nineSMSCount));
                         }
-                        if(s.length()==1217){
+
+                        if(s.length()>1217 && s.length()<1369){
                             txvMsgCount.setText("9");
                         }
-
                     }
 
                     if(smsLength>1368){
@@ -289,10 +349,10 @@ public class ContactsToSMSActivity extends AppCompatActivity {
                         if(tenSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(tenSMSCount));
                         }
-                        if(s.length()==1369){
+
+                        if(s.length()>1369){
                             txvMsgCount.setText("10");
                         }
-
                     }
 
                 }
@@ -301,11 +361,22 @@ public class ContactsToSMSActivity extends AppCompatActivity {
             }
 
             public void afterTextChanged(Editable s) {
-
+                //  txvLengthOfText.setText("afc");
             }
         };
 
         edtContentMsg.addTextChangedListener(txwatcher);
+
+        conToSMSAdapter = new ConToSMSAdapter(allContactList,ContactsToSMSActivity.this);
+        lvMultiSelect.setAdapter(conToSMSAdapter);
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linLayForm.setVisibility(View.VISIBLE);
+                linLayListView.setVisibility(View.GONE);
+            }
+        });
+
     }
 
 

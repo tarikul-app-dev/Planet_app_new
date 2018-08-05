@@ -31,6 +31,7 @@
                     android:text="@string/contact_us"
                     android:textSize="22dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="#fff"
                     />
 
             </RelativeLayout>
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:text=" Planet IT"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="05dp"
             android:textSize="22dp"
             android:textColor="#fff"
             android:layout_marginLeft="10dp"
@@ -61,19 +62,23 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_gravity="center"
-            android:layout_marginTop="03dp"
+            android:layout_marginTop="0dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="#B11C53" />
+            android:background="#fff" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="05dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_border"
             >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="05dp"
                 android:src="@drawable/ic_home_contact"
                 android:layout_marginLeft="15dp"
                 />
@@ -94,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="05dp"
                     >
                     <ImageView
                         android:id="@+id/imgv_map"
@@ -107,174 +112,214 @@
                         android:id="@+id/txv_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="View On Map"
+                        android:text="@string/view_on_map"
                         android:textColor="#fff"
-                        android:textSize="16dp"
+                        android:textSize="18dp"
                         android:layout_marginRight="02dp"
-
                         />
                 </LinearLayout>
 
-
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/txv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Suite 8C, Hashim Tower (Level-8), 205/1
+                <TextView
+                    android:id="@+id/txv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Suite 8C, Hashim Tower (Level-8), 205/1
 Gulshan Tejgaon Link Road
 Dhaka, Bangladesh."
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:textSize="20dp"
-            android:textColor="#fff"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="35dp"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:layout_marginLeft="0dp"
+                    />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="@drawable/button_border"
             android:layout_marginLeft="10dp"
-            />
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="05dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_email"
+                android:layout_marginLeft="15dp"
+                />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_email"
-            android:layout_marginLeft="15dp"
-            />
-
-        <TextView
-            android:id="@+id/txv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Support: service@planetgroupbd.com"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:layout_marginLeft="15dp"
-            android:textIsSelectable="true"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_call"
-            android:layout_marginLeft="15dp"
-            />
+            <TextView
+                android:id="@+id/txv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Support: service@planetgroupbd.com"
+                android:layout_marginTop="05dp"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:layout_marginLeft="38dp"
+                android:textIsSelectable="true"
+                />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:orientation="vertical"
+            android:background="@drawable/button_border"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="05dp"
             >
+            <ImageView
+                android:id="@+id/imgv_hotline_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_call"
+                android:layout_marginLeft="15dp"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hotline:"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:layout_marginLeft="15dp"
-                    />
-                <TextView
-                    android:id="@+id/txv_hotline_call"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="+88 01616 752638"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:layout_marginLeft="15dp"
-                    />
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="38dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hotline:"
+                        android:layout_marginTop="05dp"
+                        android:textSize="20dp"
+                        android:textColor="#fff"
+
+                        />
+                    <TextView
+                        android:id="@+id/txv_hotline_call"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+88 01616 752638"
+                        android:layout_marginTop="05dp"
+                        android:textSize="20dp"
+                        android:textColor="#fff"
+                        android:layout_marginLeft="15dp"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
-
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_skype"
-            android:layout_marginLeft="15dp"
-            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:orientation="vertical"
+            android:background="@drawable/button_border"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="05dp"
             >
+            <ImageView
+                android:id="@+id/imgv_skype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_skype"
+                android:layout_marginLeft="15dp"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Skype:"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:layout_marginLeft="15dp"
-                    />
-                <TextView
-                    android:id="@+id/txv_skype_call"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="planetgroupbd"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:layout_marginLeft="15dp"
-                    />
+                    android:layout_marginLeft="38dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Skype:"
+                        android:textColor="#fff"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/txv_skype_call"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="10dp"
+                        android:text="planetgroupbd"
+                        android:textColor="#fff"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_facebook"
-            android:layout_marginLeft="15dp"
-            />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:orientation="vertical"
+            android:background="@drawable/button_border"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="05dp"
             >
+            <ImageView
+                android:id="@+id/imgv_facebook_page"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_facebook"
+                android:layout_marginLeft="15dp"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 >
-                <TextView
-                    android:id="@+id/txv_fbook_head"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Facebook:"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:layout_marginLeft="15dp"
-                    />
-                <TextView
-                    android:id="@+id/txv_facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="facebook.com/PlanetGroupBD/"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textColor="#fff"
-                    android:layout_marginLeft="15dp"
-                    />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="38dp"
+                    >
+                    <TextView
+                        android:id="@+id/txv_fbook_head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Facebook:"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textColor="#fff"
+                        />
+                    <TextView
+                        android:id="@+id/txv_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="facebook.com/PlanetGroupBD/"
+                        android:layout_marginTop="10dp"
+                        android:textSize="18dp"
+                        android:textColor="#fff"
+                        android:layout_marginLeft="10dp"
+                        />
+                </LinearLayout>
 
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
     </ScrollView>
 

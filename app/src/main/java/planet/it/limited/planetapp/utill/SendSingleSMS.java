@@ -75,7 +75,7 @@ public class SendSingleSMS {
         protected void onPreExecute() {
             super.onPreExecute();
             loadingDialog = ProgressDialog.show(mContext, "Please wait", "Loading...");
-
+            loadingDialog.setCancelable(true);
         }
 
         @Override

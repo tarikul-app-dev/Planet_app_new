@@ -43,6 +43,7 @@
     <string name="bkash_trxid">bKash TrxId</string>
     <string name="submit">Submit</string>
     <string name="refresh">Refresh</string>
+    <string name="view_on_map"><u>View On Map</u></string>
 
 
     <string-array name="lang_select">

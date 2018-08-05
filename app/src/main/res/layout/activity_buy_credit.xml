@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/ic_back_image"
-    tools:context="planet.it.limited.planetapp.activity.AccountTopUpActivity">
+    tools:context="planet.it.limited.planetapp.activity.BuyCreditActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

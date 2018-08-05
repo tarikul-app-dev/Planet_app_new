@@ -22,7 +22,7 @@ public class ContactUsActivity extends AppCompatActivity {
     Toolbar toolbar;
     public static String TAG = "cookie";
     public static String TAG_PRO = "progress";
-    ImageView imgvHome,imgvMap;
+    ImageView imgvMap,imgvHotlineCall,imgvFacebook,imgvSkype;
     TextView txvMap,txvCallHotline,txvCallSkype,txvPlanetIT,txvAddress,txvEmail,txvFacebook,txvFBookHead;
     MaterialDialog alert;
     public static final int REQUEST_PERM_CALL = 102;
@@ -62,6 +62,9 @@ public class ContactUsActivity extends AppCompatActivity {
         txvFacebook = (TextView)findViewById(R.id.txv_facebook);
         txvFBookHead = (TextView)findViewById(R.id.txv_fbook_head);
         txvToolbarText = (TextView)findViewById(R.id.txv_main);
+        imgvHotlineCall = (ImageView)findViewById(R.id.imgv_hotline_call);
+        imgvFacebook = (ImageView)findViewById(R.id.imgv_facebook_page);
+        imgvSkype = (ImageView)findViewById(R.id.imgv_skype);
 
         fontCustomization = new FontCustomization(ContactUsActivity.this);
         txvPlanetIT.setTypeface(fontCustomization.getTexgyreHerosRegular());
@@ -113,6 +116,32 @@ public class ContactUsActivity extends AppCompatActivity {
             }
         });
 
+        imgvHotlineCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+
+                    ActivityCompat.requestPermissions(ContactUsActivity.this,
+                            new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PERM_CALL);
+
+                } else{
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:+88 01616 752638" ));
+                    startActivity(intent);
+                }
+            }
+        });
+
+        imgvSkype.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PackageManager packageManager = getPackageManager();
+                Intent skype = packageManager.getLaunchIntentForPackage("com.skype.raider");
+                // skype.setData(Uri.parse("tel:+88 01616 752638"));
+                startActivity(skype);
+            }
+        });
 
         txvCallSkype.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +160,20 @@ public class ContactUsActivity extends AppCompatActivity {
                //  fIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + "facebook.com/PlanetGroupBD/"));
                     fIntent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + "PlanetGroupBD/"));
                  startActivity(fIntent);
+                } catch (Exception e) {
+                    fIntent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + "PlanetGroupBD/"));
+                    startActivity(fIntent);
+                }
+            }
+        });
+
+        imgvFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //  fIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + "facebook.com/PlanetGroupBD/"));
+                    fIntent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + "PlanetGroupBD/"));
+                    startActivity(fIntent);
                 } catch (Exception e) {
                     fIntent =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + "PlanetGroupBD/"));
                     startActivity(fIntent);

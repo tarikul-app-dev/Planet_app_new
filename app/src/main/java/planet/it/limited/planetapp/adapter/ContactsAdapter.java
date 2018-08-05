@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class ContactsAdapter extends BaseAdapter {
         ViewHolder holder = new ViewHolder();
         holder.phoneNumber = (TextView) v.findViewById(R.id.txv_user_number);
         holder.name = (TextView) v.findViewById(R.id.txv_user_name);
+
         return holder;
     }
     private   class ViewHolder {

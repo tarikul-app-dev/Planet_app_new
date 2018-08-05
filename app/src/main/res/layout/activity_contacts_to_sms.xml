@@ -55,7 +55,7 @@
             android:id="@+id/txv_total_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Contacts:"
+            android:text="Total :"
             android:layout_marginTop="12dp"
             android:textSize="20dp"
             android:textColor="#fff"
@@ -64,7 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="20dp"
 
             >
             <TextView
@@ -72,11 +72,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="09dp"
                 android:textSize="20dp"
                 android:textColor="#fff"
                 android:layout_marginLeft="05dp"
                 />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="05dp"
+                >
+                <Button
+                    android:id="@+id/btn_done"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_done"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+
+
         </LinearLayout>
 
 
@@ -86,8 +101,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linlayout_form"
-        android:visibility="visible"
+        android:visibility="gone"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -264,24 +280,24 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linlayout_listview"
-        android:visibility="gone"
+        android:id="@+id/lin_contact_listview"
+        android:visibility="visible"
         android:layout_gravity="center"
-        android:layout_marginLeft="38dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="06dp"
         >
 
         <ListView
-            android:id="@+id/lv_contact"
-            android:layout_width="290dp"
+            android:id="@+id/lv_con_to_sms"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="05dp"
             android:layout_gravity="center"
+            android:dividerHeight="2dp"
+            android:divider="#fff"
             />
-
-
 
     </LinearLayout>
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import planet.it.limited.planetapp.model.ConToSMSM;
 import planet.it.limited.planetapp.model.ContactModel;
 
 
@@ -107,7 +108,7 @@ public class ContactsDB {
 
     public ArrayList getInputData(){
 
-        ArrayList<ContactModel> contactList = new ArrayList<>();
+        ArrayList<ConToSMSM> contactList = new ArrayList<>();
         String select_query = "SELECT  * FROM " + DATABASE_TABLE_CONTACTS ;
 
 
@@ -123,7 +124,7 @@ public class ContactsDB {
         for (cursor.moveToLast(); ! cursor.isBeforeFirst(); cursor.moveToPrevious()) {
             //    for (cursor.moveToFirst(); ! cursor.isAfterLast(); cursor.moveToNext()) {
 
-            ContactModel contactModel = new ContactModel();
+            ConToSMSM contactModel = new ConToSMSM();
             contactModel.setUserName(cursor.getString(iUserName));
             contactModel.setContactNumber(cursor.getString(iMobNumber));
 

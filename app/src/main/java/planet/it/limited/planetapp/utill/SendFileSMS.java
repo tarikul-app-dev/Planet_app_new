@@ -71,7 +71,7 @@ public class SendFileSMS {
         protected void onPreExecute() {
             super.onPreExecute();
             loadingDialog = ProgressDialog.show(mContext, "Please wait", "Loading...");
-
+            loadingDialog.setCancelable(true);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)

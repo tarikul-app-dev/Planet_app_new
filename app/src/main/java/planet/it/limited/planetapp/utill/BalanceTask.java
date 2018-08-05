@@ -96,6 +96,9 @@ public class BalanceTask {
 
                         retBalance = jsonObject.getString("balance");
                         saveToSharedPreferences("balance",retBalance,mContext);
+                        if(retBalance.length()>0){
+                            SettingsActivity.checkBalance = true;
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -103,6 +106,7 @@ public class BalanceTask {
 
                 } else {
                     saveToSharedPreferences("balance","",mContext);
+                    SettingsActivity.checkBalance = false;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

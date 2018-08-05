@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ public class SMSLengthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_length_checker);
+        setContentView(R.layout.activity_sms_length);
         toolbar = (Toolbar)findViewById(R.id.toolbar_sms_checker_app);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,18 +50,57 @@ public class SMSLengthActivity extends AppCompatActivity {
         final TextWatcher txwatcher = new TextWatcher() {
             int smsLength =0;
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                smsLength = start;
+                int smsTotalChar = 160 ;
+                if(start>0){
+                   // int smsCount = smsTotalChar - start;
+                    if(start<=160){
+                        txvMsgCount.setText("1");
+                    }
+                    if(start>160 && start<305){
+                        txvMsgCount.setText("2");
+                    }
+
+                    if(start>305 && start<457){
+                        txvMsgCount.setText("3");
+                    }
+                    if(start>457 && start<609){
+                        txvMsgCount.setText("4");
+                    }
+
+                    if(start>609 && start<761){
+                        txvMsgCount.setText("5");
+                    }
+                    if(start>761 && start<913){
+                        txvMsgCount.setText("6");
+                    }
+                    if(start>913 && start<1065){
+                        txvMsgCount.setText("7");
+                    }
+
+                    if(start>1065 && start<1217){
+                        txvMsgCount.setText("8");
+                    }
+
+                    if(start>1217 && start<1369){
+                        txvMsgCount.setText("9");
+                    }
+
+                    if(start>1369){
+                        txvMsgCount.setText("10");
+                    }
+                }
+
 
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 smsLength = s.length();
                 int smsTotalChar = 160 ;
                 if(s.length()>0){
                     int smsCount = smsTotalChar - s.length();
                     if(smsCount>0){
                         txvLengthOfText.setText(String.valueOf(smsCount));
-
                     }
                     if(smsLength>159){
                         int secTotalSMSCount = 145;
@@ -73,7 +111,8 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(SecSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(SecSMSCount));
                         }
-                        if(s.length()==161){
+
+                        if(s.length()>160 && s.length()<305){
                             txvMsgCount.setText("2");
                         }
 
@@ -88,7 +127,8 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(thirdSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(thirdSMSCount));
                         }
-                        if(s.length()==305){
+
+                        if(s.length()>305 && s.length()<457){
                             txvMsgCount.setText("3");
                         }
 
@@ -103,7 +143,8 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(fourSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(fourSMSCount));
                         }
-                        if(s.length()==457){
+
+                        if(s.length()>457 && s.length()<609){
                             txvMsgCount.setText("4");
                         }
 
@@ -118,7 +159,8 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(fiveSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(fiveSMSCount));
                         }
-                        if(s.length()==609){
+
+                        if(s.length()>609 && s.length()<761){
                             txvMsgCount.setText("5");
                         }
 
@@ -133,10 +175,10 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(sixSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(sixSMSCount));
                         }
-                        if(s.length()==761){
+
+                        if(s.length()>761 && s.length()<913){
                             txvMsgCount.setText("6");
                         }
-
                     }
                     if(smsLength>912){
                         int sevenTotalSMSCount = 152;
@@ -147,7 +189,8 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(sevSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(sevSMSCount));
                         }
-                        if(s.length()==913){
+
+                        if(s.length()>913 && s.length()<1065){
                             txvMsgCount.setText("7");
                         }
 
@@ -162,7 +205,8 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(eightSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(eightSMSCount));
                         }
-                        if(s.length()==1065){
+
+                        if(s.length()>1065 && s.length()<1217){
                             txvMsgCount.setText("8");
                         }
 
@@ -177,10 +221,10 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(nineSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(nineSMSCount));
                         }
-                        if(s.length()==1217){
+
+                        if(s.length()>1217 && s.length()<1369){
                             txvMsgCount.setText("9");
                         }
-
                     }
 
                     if(smsLength>1368){
@@ -192,10 +236,10 @@ public class SMSLengthActivity extends AppCompatActivity {
                         if(tenSMSCount>0){
                             txvLengthOfText.setText(String.valueOf(tenSMSCount));
                         }
-                        if(s.length()==1369){
+
+                        if(s.length()>1369){
                             txvMsgCount.setText("10");
                         }
-
                     }
 
                 }
@@ -204,7 +248,7 @@ public class SMSLengthActivity extends AppCompatActivity {
             }
 
             public void afterTextChanged(Editable s) {
-
+              //  txvLengthOfText.setText("afc");
             }
         };
 

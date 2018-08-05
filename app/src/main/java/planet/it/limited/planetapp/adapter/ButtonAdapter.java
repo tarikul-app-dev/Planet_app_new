@@ -2,7 +2,6 @@ package planet.it.limited.planetapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -15,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import planet.it.limited.planetapp.R;
-import planet.it.limited.planetapp.activity.AccountTopUpActivity;
+import planet.it.limited.planetapp.activity.BuyCreditActivity;
 import planet.it.limited.planetapp.activity.ContactUsActivity;
 import planet.it.limited.planetapp.activity.ContactsToSMSActivity;
 import planet.it.limited.planetapp.activity.FileToSMSActivity;
@@ -36,15 +35,14 @@ public class ButtonAdapter extends BaseAdapter {
     GridViewButtonInterface gridViewButtonInterface;
     Drawable [] drawables;
     FontCustomization fontCustomization;
-    public  int[] colors;
+   // public  int[] colors;
 
     // Gets the context so it can be used later
-    public ButtonAdapter(Context c, String[] filesnames, GridViewButtonInterface gridViewButtonInterface, Drawable[] drawables, int[] colors) {
+    public ButtonAdapter(Context c, String[] filesnames, GridViewButtonInterface gridViewButtonInterface, Drawable[] drawables ) {
         mContext = c;
         this.filesnames = filesnames;
         this.gridViewButtonInterface = gridViewButtonInterface;
         this.drawables = drawables;
-        this.colors = colors;
 
         fontCustomization = new FontCustomization(mContext);
 
@@ -123,7 +121,7 @@ public class ButtonAdapter extends BaseAdapter {
                    // ((Activity)mContext).finish();
                 }
                 else if(position==4){
-                    Intent intent = new Intent(mContext,AccountTopUpActivity.class);
+                    Intent intent = new Intent(mContext,BuyCreditActivity.class);
                     mContext.startActivity(intent);
                     // ((Activity)mContext).finish();
                 }

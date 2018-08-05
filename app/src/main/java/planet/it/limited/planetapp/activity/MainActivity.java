@@ -8,35 +8,25 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Spinner;
 
 import java.util.List;
 import planet.it.limited.planetapp.R;
 import planet.it.limited.planetapp.adapter.ButtonAdapter;
 import planet.it.limited.planetapp.database.ContactsDB;
 import planet.it.limited.planetapp.detectContact.ContactWatchService;
-import planet.it.limited.planetapp.utill.BalanceTask;
 import planet.it.limited.planetapp.utill.FontCustomization;
 import planet.it.limited.planetapp.utill.LanguageUtility;
 
@@ -44,7 +34,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getBoleanValueSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.getValueFromSharedPreferences;
 import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.saveBoleanValueSharedPreferences;
-import static planet.it.limited.planetapp.utill.SaveValueSharedPreference.setValueToSharedPreferences;
+
 import android.support.v7.widget.Toolbar;
 public class MainActivity extends AppCompatActivity implements ButtonAdapter.GridViewButtonInterface{
 
@@ -52,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
     public String[] filesnames = new String[8];
 
     public Drawable[] drawables = new Drawable[8];
-    public int colors[] = new int[8];
+   // public int colors[] = new int[8];
 
     boolean isReadContacts;
     ContactsDB contactsDB;
@@ -77,8 +67,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
     String password = " ";
     String retBalance = " ";
     String defaultUserName = "planet user";
-
-    BalanceTask balanceTask;
+    String checkLan = "";
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -89,28 +78,68 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         toolbar = (Toolbar) findViewById(R.id.toolbar_main_dashboard);
         setSupportActionBar(toolbar);
         initViews();
+        userName = getValueFromSharedPreferences("user_name",MainActivity.this);
+        password = getValueFromSharedPreferences("pass_word",MainActivity.this);
+
+//        if(userName==null && password==null){
+//            Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+//            startActivity(intent);
+//           // initViews();
+//        }else {
+//            setContentView(R.layout.activity_main);
+//            initViews();
+//        }
+
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                if((userName==null && password==null)||(userName.length()<0 && password.length()<0)){
+                    Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                    startActivity(intent);
+                    // initViews();
+                }
+
+            }
+        },10000);// set time as per your requirement
+
         startContactLookService();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void initViews(){
+        languageUtility = new LanguageUtility(MainActivity.this);
+        checkLan = getValueFromSharedPreferences("language",MainActivity.this);
+        if(checkLan!=null){
+            if(checkLan.equals("en")){
+                languageUtility.selectLanguage("en");
+
+            }else {
+                languageUtility.selectLanguage("bn");
+
+            }
+        }
         txvUserName = (TextView)findViewById(R.id.txv_user_main);
         txvBalance = (TextView)findViewById(R.id.txv_balance);
         userName = getValueFromSharedPreferences("user_name",MainActivity.this);
 
-
         if(userName!=null && userName.length()>0){
-            txvUserName.setText(userName);
-        }else {
-            txvUserName.setText(defaultUserName);
+            if(txvUserName!=null){
+                txvUserName.setText(userName);
+            }
+
         }
 
         fontCustomization = new FontCustomization(MainActivity.this);
-        txvUserName.setTypeface(fontCustomization.getHeadLandOne());
+       // txvUserName.setTypeface(fontCustomization.getHeadLandOne());
 
         retBalance = getValueFromSharedPreferences("balance",MainActivity.this);
         if(retBalance!=null && retBalance.length()>0){
-            txvBalance.setText(retBalance);
+            if(txvBalance!=null){
+                txvBalance.setText(retBalance);
+            }
+
         }
 
         filesnames[0] = getString(R.string.single_sms);
@@ -131,23 +160,26 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         drawables[6] = this.getResources().getDrawable(R.drawable.ic_contact_us);
         drawables[7] = this.getResources().getDrawable(R.drawable.ic_sms_check_length);
 
-        colors[0] = ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[1] =ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[2] = ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[3] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[4] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[5] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[6] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
-        colors[7] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[0] = ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[1] =ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[2] = ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[3] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[4] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[5] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[6] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
+//        colors[7] =  ContextCompat.getColor(MainActivity.this, R.color.color_white);
 
-        languageUtility = new LanguageUtility(MainActivity.this);
+
 
         btnGridView = (GridView)findViewById(R.id.btn_gridview);
 
         contactsDB = new ContactsDB(MainActivity.this);
         contactsDB.open();
         isReadContacts = getBoleanValueSharedPreferences("is_read", MainActivity.this);
-        btnGridView.setAdapter(new ButtonAdapter(MainActivity.this,filesnames,this,drawables,colors));
+        if(btnGridView!=null){
+            btnGridView.setAdapter(new ButtonAdapter(MainActivity.this,filesnames,this,drawables));
+        }
+
         if (!isReadContacts) {
             getContacts();
         }
@@ -338,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
             //  ActivityCompat.finishAffinity(MainActivity.this);
         }else if(position==4){
 
-            Intent intent = new Intent(MainActivity.this,AccountTopUpActivity.class);
+            Intent intent = new Intent(MainActivity.this,BuyCreditActivity.class);
             startActivity(intent);
             //  ActivityCompat.finishAffinity(MainActivity.this);
         }
@@ -386,18 +418,28 @@ public class MainActivity extends AppCompatActivity implements ButtonAdapter.Gri
         String userName = getValueFromSharedPreferences("user_name",MainActivity.this); ;
 
         if(userName!=null){
-            txvUserName.setText(userName);
-        }else {
-            txvUserName.setText(defaultUserName);
+            if(txvUserName!=null){
+                txvUserName.setText(userName);
+            }
+
         }
         retBalance = getValueFromSharedPreferences("balance",MainActivity.this);
         if(retBalance!=null && retBalance.length()>0){
-            txvBalance.setText(retBalance);
-        }else {
-            txvBalance.setText("0.0");
+            if(txvBalance!=null){
+                txvBalance.setText(retBalance);
+            }
+
         }
+        checkLan = getValueFromSharedPreferences("language",MainActivity.this);
+        if(checkLan!=null){
+            if(checkLan.equals("en")){
+                languageUtility.selectLanguage("en");
 
+            }else {
+                languageUtility.selectLanguage("bn");
 
+            }
+        }
     }
 
 

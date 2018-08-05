@@ -1,6 +1,8 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat" />
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorAccent">#fff</item>
+    </style>
 
     <style name="Theme.AppCompat" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -48,6 +50,10 @@
         <item name="colorAccent">@color/color_white</item>
     </style>
 
-
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">#f3f3f3</item>
+        <item name="android:textColorPrimary">#f3f3f3</item>
+        <item name="android:background">#ff42959a</item>
+    </style>
 
 </resources>
